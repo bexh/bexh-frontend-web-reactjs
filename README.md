@@ -5,7 +5,7 @@ To run with docker:
 docker-compose up -d
 docker images
 pwd
-docker run -it -p 3000:3000 -v <pwd_output>/bexh-web-app/src:/bexh-web=app/src <image_id>
+docker run -it -p 3000:3000 -v <pwd_output>/bexh-web-app/src:/bexh-web-app/src <image_id>
 
 To run without docker (for some odd reason):
 
