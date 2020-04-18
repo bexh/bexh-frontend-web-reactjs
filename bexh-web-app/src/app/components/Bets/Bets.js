@@ -1,6 +1,6 @@
 import React from 'react';
 import { BetCell } from '../../components';
-import './style.css';
+import './style.scss';
 
 export default class Bets extends React.Component {
     constructor(props) {
