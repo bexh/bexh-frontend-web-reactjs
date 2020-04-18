@@ -1,0 +1,27 @@
+.bets-flex-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 200px;
+
+    margin-top: 30px;
+    margin-bottom: 30px;
+
+    padding-top: 30px;
+    padding-bottom: 30px;
+
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.92);
+}
+
+.bets-flex-container h1 {
+    align-self: flex-start;
+    color: white;
+    margin-left: 5%;
+}
+
+.bets-flex-container h2 {
+    align-self: flex-start;
+    color: white;
+    margin-bottom: 0px;
+    margin-top: 0px;
+    margin-left: 10%;
+}
