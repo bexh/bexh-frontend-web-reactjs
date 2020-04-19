@@ -5,7 +5,7 @@ import {
     MakeBet,
     Bets
 } from '../../components';
-import './style.css';
+import './style.scss';
 
 export default class Event extends React.Component {
     render() {

@@ -8,6 +8,7 @@ export default class Bets extends React.Component {
         this.state = {
             "Exchange": [
                 {
+                    "betType": "Exchange",
                     "amount": 221,
                     "team": "Detroit Pistons",
                     "amountToWin": 151,
@@ -15,34 +16,42 @@ export default class Bets extends React.Component {
                     "status": "Active",
                 },
                 {
-                    "amount": 221,
-                    "team": "Detroit Pistons",
-                    "amountToWin": 151,
-                    "odds": 300,
-                    "status": "Active",
+                    "betType": "Exchange",
+                    "amount": 20,
+                    "team": "Cleveland Cavaliers",
+                    "amountToWin": 150,
+                    "odds": -200,
+                    "status": "Pending",
+                    "orderType": "Limit",
                 },
                 {
-                    "amount": 221,
+                    "betType": "Exchange",
+                    "amount": 50,
                     "team": "Detroit Pistons",
-                    "amountToWin": 151,
+                    "amountToWin": 22,
                     "odds": 300,
                     "status": "Active",
+                    "orderType": "Limit",
                 },
             ],
             "Friends": [
                 {
-                    "amount": 221,
+                    "betType": "Social",
+                    "amount": 10,
                     "team": "Detroit Pistons",
-                    "amountToWin": 151,
-                    "odds": 300,
-                    "status": "Active",
+                    "amountToWin": 20,
+                    "odds": 200,
+                    "status": "PendingYou",
+                    "with": "Eris Llangos",
                 },
                 {
-                    "amount": 221,
-                    "team": "Detroit Pistons",
-                    "amountToWin": 151,
-                    "odds": 300,
-                    "status": "Active",
+                    "betType": "Social",
+                    "amount": 10000,
+                    "team": "ClevelandCavaliers",
+                    "amountToWin": 10000,
+                    "odds": 0,
+                    "status": "PendingThem",
+                    "with": "Julia Rosenson",
                 },
             ]
         }
@@ -57,8 +66,7 @@ export default class Bets extends React.Component {
                         <BetCell key={index} bet={bet} />
                     ))
                 }
-                <br /><br />
-                <h2>Friends</h2>
+                <h2 id="friendsHeader">Friends</h2>
                 {
                     this.state.Friends.map((bet, index) => (
                         <BetCell key={index} bet={bet} />
