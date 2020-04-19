@@ -1,0 +1,11 @@
+version: '2'
+services:
+    bexh-web-app:
+        build:
+            context: ./bexh-web-app
+            args:
+                app_env: ${APP_ENV}
+        volumes:
+            - ./bexh-web-app/src:/bexh-web-app/src 
+        ports:
+        - "3000:3000"
