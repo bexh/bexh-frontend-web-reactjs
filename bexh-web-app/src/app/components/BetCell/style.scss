@@ -20,6 +20,11 @@
     color: white;
 }
 
+.boxshadow-flex-container:hover {
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.92);
+    cursor: pointer;
+}
+
 .betMain {
     display: flex;
 }
@@ -107,9 +112,4 @@
 
 #pending {
     color: $yellow;
-}
-
-.boxshadow-flex-container:hover {
-    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.92);
-    cursor: pointer;
 }
