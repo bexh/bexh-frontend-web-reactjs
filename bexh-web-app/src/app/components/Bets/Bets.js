@@ -47,7 +47,7 @@ export default class Bets extends React.Component {
                 {
                     "betType": "Social",
                     "amount": 10000,
-                    "team": "ClevelandCavaliers",
+                    "team": "Cleveland Cavaliers",
                     "amountToWin": 10000,
                     "odds": 0,
                     "status": "PendingThem",
