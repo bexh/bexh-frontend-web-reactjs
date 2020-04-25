@@ -59,14 +59,14 @@ export default class Bets extends React.Component {
     render() {
         return (
             <div className="bets-flex-container">
-                <h1>Your Bets</h1>
-                <h2>Exchange</h2>
+                <h1 className="header">Your Bets</h1>
+                <h2 className="category">Exchange</h2>
                 {
                     this.state.Exchange.map((bet, index) => (
                         <BetCell key={index} bet={bet} />
                     ))
                 }
-                <h2 id="friendsHeader">Friends</h2>
+                <h2 id="friendsHeader" className="category">Friends</h2>
                 {
                     this.state.Friends.map((bet, index) => (
                         <BetCell key={index} bet={bet} />
