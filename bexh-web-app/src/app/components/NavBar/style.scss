@@ -1,48 +1,106 @@
-@import '../../../sass/main.scss';
+@import "../../../sass/main.scss";
 
-.NavBar {
+a {
+  text-decoration: none;
+}
+
+ul {
+  background: $black;
+  list-style: none;
+  margin: 0;
+  padding-left: 0;
+}
+
+li {
+  color: #fff;
+  background: $black;
+  display: block;
+  float: left;
+  padding: 1rem;
+  position: relative;
+  text-decoration: none;
+  transition-duration: 0.5s;
+}
+
+li a {
+  color: $white;
+}
+
+li:hover {
+  background: $green;
+  cursor: pointer;
+}
+
+ul li ul {  
+    background: $black;
+    visibility: hidden;
+    opacity: 0;
+    min-width: 5rem;
+    position: absolute;
+    transition: all 0.5s ease;
+    margin-top: 1rem;
+    left: 0;
+    display: none;
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.92);
+    background: #252323;
+    
+}
+
+ul li:hover > ul,
+  ul li:focus-within > ul,
+  ul li ul:hover {
+  visibility: visible;
+  opacity: 1;
+  display: block;
+}
+
+ul li ul li {
+    width: 75%;
+}
+
+nav {
     display: flex;
     justify-content: space-between;
-    align-items: stretch;
+    border-bottom: 3px solid #1B1717;
     position: sticky;
     top: 0;
-    border-bottom: 3px solid #1B1717;;
     background-color: $black;
+    width: 100%;
 }
 
-.NavBarLeft {
+#LogOut:hover {
+    background-color: #8B0000;
+}
+
+#NavRight {
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 20px;
+}
+
+#NavLeft {
     display: flex;
     flex-grow: 2;
-    margin-top: 10px;
-    margin-bottom: 10px;
+    align-items: center;
+    justify-content: flex-start;
     margin-left: 10px;
 }
-
-.NavBarRightItem {
-    display: flex;
-    align-items: center;
-    font-size: 14px;
-    padding-right: 7px;
-    padding-left: 7px;
-    font-weight: 600;
-}
-
-.NavBarRight {
-    display: flex;
-    align-items: stretch;
-    margin-right: 10px;
-}
-
 
 #Logo {
     font-size: 28px;
     font-weight: 900;
-    margin-right: 20px;
+    margin-right: 25px;
 }
+
+#Logo a {
+    color: $white;
+}
+
 #Search {
     flex-grow: 2;
     margin-right: 10px;
     max-width: 300px;
+    height: 50%;
     background-color: $black;
     box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.92);
     border: none;

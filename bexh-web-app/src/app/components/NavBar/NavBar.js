@@ -4,27 +4,33 @@ import './style.scss';
 export default class NavBar extends React.Component {
     render() {
         return (
-            <div className="NavBar">
-                <div className="NavBarLeft">
-                    <div id="Logo">BEXH</div>
-                    <input type="text" placeholder=" Search" id="Search" />
+            <nav role="navigation">
+                <div id="NavLeft">
+                    <div id="Logo"><a href="#">BEXH</a></div>
+                    <input id="Search" placeholder=" Search" />
                 </div>
-                <div className="NavBarRight">
-                    <div className="NavBarRightItem">
-                        Sports &#9660;
-                    </div>
-                    <div className="NavBarRightItem">
-                        Portfolio
-                    </div>
-                    <div className="NavBarRightItem">
-                        Settings &#9660;
-                    </div>
+                <div id="NavRight">
+                    <ul>
+                        <li><a>Sports</a>
+                            <ul class="dropdown">
+                                <li><a>Football</a></li>
+                                <li><a>Basketball</a></li>
+                                <li><a>Baseball</a></li>
+                                <li><a>Hockey</a></li>
+                            </ul>
+                        </li>
+                        <li><a>User Hub</a></li>
+                        <li><a>Account</a>
+                            <ul class="dropdown">
+                                <li><a>Friends</a></li>
+                                <li><a>Banking</a></li>
+                                <li><a>Settings</a></li>
+                                <li id="LogOut"><a>Log Out</a></li>
+                            </ul>
+                        </li>
+                    </ul>
                 </div>
-                
-                    
-                    
-                
-            </div>
+            </nav>
         );
     }
 }
