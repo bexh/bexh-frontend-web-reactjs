@@ -1,6 +1,17 @@
 @import '../sass/main.scss';
 
 .App {
+  display: flex;
+  flex-direction: column;
   text-align: center;
   background-color: $black;
+}
+
+.App h1 {
+  margin: 0;
+}
+
+div {
+  color: $white;
+  font-family: sans-serif;
 }

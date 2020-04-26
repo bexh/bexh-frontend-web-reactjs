@@ -1,0 +1,54 @@
+@import '../../../sass/main.scss';
+
+.NavBar {
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+    position: sticky;
+    top: 0;
+    border-bottom: 3px solid #1B1717;;
+    background-color: $black;
+}
+
+.NavBarLeft {
+    display: flex;
+    flex-grow: 2;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 10px;
+}
+
+.NavBarRightItem {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    padding-right: 7px;
+    padding-left: 7px;
+    font-weight: 600;
+}
+
+.NavBarRight {
+    display: flex;
+    align-items: stretch;
+    margin-right: 10px;
+}
+
+
+#Logo {
+    font-size: 28px;
+    font-weight: 900;
+    margin-right: 20px;
+}
+#Search {
+    flex-grow: 2;
+    margin-right: 10px;
+    max-width: 300px;
+    background-color: $black;
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.92);
+    border: none;
+    color: $white;
+}
+
+#Search:focus {
+    outline: none;
+}
