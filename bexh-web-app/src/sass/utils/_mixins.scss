@@ -1,0 +1,11 @@
+@import './variables';
+
+@mixin boxshadow {
+    background: $black;
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.92);
+}
+
+@mixin modify-text($size, $family: 'sans-serif') {
+    font-size: $size;
+    font-family: $family;
+}
