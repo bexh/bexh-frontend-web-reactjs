@@ -5,11 +5,12 @@ import {
     MakeBet,
     Bets
 } from '../../components';
+import './style.scss';
 
 export default class Event extends React.Component {
     render() {
         return (
-            <div>
+            <div id="flex">
                 <EventInfo />
                 <EventGraph />
                 <MakeBet />
