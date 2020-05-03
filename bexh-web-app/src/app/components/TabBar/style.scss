@@ -1,0 +1,10 @@
+@import '../../../sass/main.scss';
+
+.tabBarContainer {
+    flex: 1;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    max-height: 45px;
+    border-bottom: 4px solid $darkBlack;
+}

@@ -3,7 +3,7 @@ import {
     EventInfo,
     EventGraph,
     MakeBet,
-    Bets
+    Bets,
 } from '../../components';
 import './style.scss';
 

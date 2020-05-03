@@ -1,0 +1,11 @@
+@import '../utils/variables';
+
+body {
+    background: $black;
+    color: $white;
+    font-family: sans-serif;
+}
+
+div:hover {
+    cursor: default;
+}
