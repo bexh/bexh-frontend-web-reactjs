@@ -1,22 +1,21 @@
 import React from 'react';
 import './style.scss';
 
-export default class TabBarButton extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
+export default class Button extends React.Component {
     render() {
-        const selectedStyle = this.props.selected ? " selected" : "";
         return (
-            <div className={"buttonTitle" + selectedStyle}>
+            <div 
+                className={["button", this.props.selected && 'selected', this.props.className]
+                    .filter(e => !!e)
+                    .join(' ')}
+                style={this.props.style ? this.props.style : null}
+            >
                 <button 
                     onClick={this.props.onClick}
                     value={this.props.title}
                 >
                     {this.props.title}
                 </button>
-                
             </div>
         );
     }

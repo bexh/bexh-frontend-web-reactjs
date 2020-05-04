@@ -2,14 +2,17 @@
 
 .cell {
     display: flex;
-    min-height: 90px;
+    flex-direction: column;
     border-bottom: 3px solid $darkBlack;
-    // transition: all .05s ease-in-out;
+}
+
+.cellMainContainer {
+    display: flex;
+    min-height: 90px;
 }
 
 .cell:hover {
     @include boxshadow;
-    // transform: scale(1.1);
     cursor: pointer;
 }
 
@@ -34,7 +37,6 @@
     justify-content: center;
     align-items: center;
     width: 10%;
-    height: 100%
 }
 
 .dot {

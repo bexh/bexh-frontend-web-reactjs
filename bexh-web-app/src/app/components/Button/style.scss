@@ -1,19 +1,6 @@
 @import '../../../sass/main.scss';
 
-// clear styling of button
-button, input[type="submit"], input[type="reset"] {
-	background: none;
-	color: inherit;
-	border: none;
-	padding: 0;
-	font: inherit;
-	cursor: pointer;
-    outline: inherit;
-    height: 100%;
-    width: 100%;
-}
-
-.buttonTitle {
+.button {
     flex-grow: 1;
     flex-basis: 0;
     display: flex;
@@ -23,12 +10,17 @@ button, input[type="submit"], input[type="reset"] {
     display: flex;
     font-size: 14px;
     font-weight: bold;
+    
 }
 
-.buttonTitle:hover {
+.button:hover {
+    cursor: pointer;
+    filter: brightness(120%);
+}
+
+.tabButton:hover {
     color: $green;
     border-bottom: 4px solid $green;
-    cursor: pointer;
 }
 
 .selected {

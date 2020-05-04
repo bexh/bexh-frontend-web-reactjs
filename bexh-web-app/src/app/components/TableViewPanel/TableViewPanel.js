@@ -2,9 +2,6 @@ import React from 'react';
 import './style.scss';
 
 export default class TableViewPanel extends React.Component {
-    constructor(props) {
-        super(props);
-    }
     render() {
         return (
             <div className="panelContainer">

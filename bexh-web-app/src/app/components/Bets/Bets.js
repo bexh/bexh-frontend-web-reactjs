@@ -1,5 +1,12 @@
 import React from 'react';
-import { TableView, TableViewCell, TableViewPanel, TabBar, TabBarButton } from '../../components';
+import {
+    TableView,
+    TableViewCell,
+    TableViewPanel,
+    ButtonBar,
+    Button,
+    TableViewCellDropdown,
+} from '../../components';
 import './style.scss';
 
 export default class Bets extends React.Component {
@@ -67,12 +74,17 @@ export default class Bets extends React.Component {
             ]
         }
         this.handleOptionChange = this.handleOptionChange.bind(this);
+        this.handleSelectBet = this.handleSelectBet.bind(this);
     }
 
     handleOptionChange(e) {
         this.setState({
             selectedTab: e.currentTarget.value,
         });
+    }
+
+    handleSelectBet(value) {
+        // TODO: modify notification on click. redux?
     }
 
     render() {
@@ -82,31 +94,50 @@ export default class Bets extends React.Component {
                 <TableViewCell
                     title={bet.teamFor}
                     info={["vs " + bet.teamAgainst, bet.date]}
-                    tag={"$" + bet.amount + " to win $" + bet.amountToWin }
+                    tag={"$" + bet.amount + " to win $" + bet.amountToWin}
+                    notification={true}
                     key={key}
-                />
+                    value="thing"
+                    onClick={this.handleSelectBet}
+                >
+                    <TableViewCellDropdown info={["Odds: +300", "On: Pistons", "With: Gilfoyle"]}>
+                        <ButtonBar>
+                            <Button
+                                title="Accept"
+                                style={{ "background": "#1E7958" }}
+                            />
+                            <Button
+                                title="Decline"
+                                style={{ background: "#A4412C" }}
+                            />
+                        </ButtonBar>
+                    </TableViewCellDropdown>
+                </TableViewCell>
             )
         );
 
         return (
             <TableView title="Your Bets">
-                <TabBar>
-                    <TabBarButton
+                <ButtonBar>
+                    <Button
+                        className="tabButton"
                         title="Active"
-                        selected={this.state.selectedTab == "Active"}
+                        selected={this.state.selectedTab === "Active"}
                         onClick={this.handleOptionChange}
                     />
-                    <TabBarButton
+                    <Button
+                        className="tabButton"
                         title="Pending"
-                        selected={this.state.selectedTab == "Pending"}
+                        selected={this.state.selectedTab === "Pending"}
                         onClick={this.handleOptionChange}
                     />
-                    <TabBarButton
+                    <Button
+                        className="tabButton"
                         title="Complete"
-                        selected={this.state.selectedTab == "Complete"}
+                        selected={this.state.selectedTab === "Complete"}
                         onClick={this.handleOptionChange}
                     />
-                </TabBar>
+                </ButtonBar>
                 <TableViewPanel title="Exchange">
                     {exchangeBets}
                 </TableViewPanel>

@@ -6,26 +6,26 @@ export default class NavBar extends React.Component {
         return (
             <nav role="navigation">
                 <div id="NavLeft">
-                    <div id="Logo"><a href="#">BEXH</a></div>
+                    <div id="Logo"><a href="https://www.google.com">BEXH</a></div>
                     <input id="Search" placeholder=" Search" />
                 </div>
                 <div id="NavRight">
                     <ul>
-                        <li><a>Sports</a>
-                            <ul class="dropdown">
-                                <li><a>Football</a></li>
-                                <li><a>Basketball</a></li>
-                                <li><a>Baseball</a></li>
-                                <li><a>Hockey</a></li>
+                        <li><a href="https://www.google.com">Sports</a>
+                            <ul className="dropdown">
+                                <li><a href="https://www.google.com">Football</a></li>
+                                <li><a href="https://www.google.com">Basketball</a></li>
+                                <li><a href="https://www.google.com">Baseball</a></li>
+                                <li><a href="https://www.google.com">Hockey</a></li>
                             </ul>
                         </li>
-                        <li><a>User Hub</a></li>
-                        <li><a>Account</a>
-                            <ul class="dropdown">
-                                <li><a>Friends</a></li>
-                                <li><a>Banking</a></li>
-                                <li><a>Settings</a></li>
-                                <li id="LogOut"><a>Log Out</a></li>
+                        <li><a href="https://www.google.com">User Hub</a></li>
+                        <li><a href="https://www.google.com">Account</a>
+                            <ul className="dropdown">
+                                <li><a href="https://www.google.com">Friends</a></li>
+                                <li><a href="https://www.google.com">Banking</a></li>
+                                <li><a href="https://www.google.com">Settings</a></li>
+                                <li id="LogOut"><a href="https://www.google.com">Log Out</a></li>
                             </ul>
                         </li>
                     </ul>

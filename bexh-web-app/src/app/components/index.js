@@ -7,5 +7,6 @@ export { default as BetCell } from './BetCell/BetCell';
 export { default as TableView } from './TableView/TableView';
 export { default as TableViewCell } from './TableViewCell/TableViewCell';
 export { default as TableViewPanel } from './TableViewPanel/TableViewPanel';
-export { default as TabBar } from './TabBar/TabBar';
-export { default as TabBarButton } from './TabBarButton/TabBarButton';
+export { default as ButtonBar } from './ButtonBar/ButtonBar';
+export { default as Button } from './Button/Button';
+export { default as TableViewCellDropdown } from './TableViewCellDropdown/TableViewCellDropdown';

@@ -1,14 +1,10 @@
 import React from 'react';
 import './style.scss';
 
-export default class TabBar extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
+export default class ButtonBar extends React.Component {
     render() {
         return (
-            <div className="tabBarContainer">
+            <div className="buttonBarContainer">
                 {this.props.children}
             </div>
         );
