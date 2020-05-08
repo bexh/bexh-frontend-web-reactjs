@@ -14,7 +14,7 @@ export default class Bets extends React.Component {
         super(props)
         this.state = {
             "selectedTab": null,
-            "Exchange": [
+            "bets": [
                 {
                     "betType": "Exchange",
                     "amount": 221,
@@ -24,6 +24,7 @@ export default class Bets extends React.Component {
                     "odds": 300,
                     "status": "Active",
                     "date": "Monday, July 13th, 10:00 PM",
+                    "viewed": true,
                 },
                 {
                     "betType": "Exchange",
@@ -35,6 +36,7 @@ export default class Bets extends React.Component {
                     "status": "Pending",
                     "orderType": "Limit",
                     "date": "Monday, July 13th, 10:00 PM",
+                    "viewed": false,
                 },
                 {
                     "betType": "Exchange",
@@ -46,9 +48,8 @@ export default class Bets extends React.Component {
                     "status": "Active",
                     "orderType": "Limit",
                     "date": "Monday, July 13th, 10:00 PM",
+                    "viewed": true,
                 },
-            ],
-            "Friends": [
                 {
                     "betType": "Social",
                     "amount": 10,
@@ -59,6 +60,7 @@ export default class Bets extends React.Component {
                     "status": "PendingYou",
                     "with": "Eris Llangos",
                     "date": "Monday, July 13th, 10:00 PM",
+                    "viewed": true,
                 },
                 {
                     "betType": "Social",
@@ -70,11 +72,13 @@ export default class Bets extends React.Component {
                     "status": "PendingThem",
                     "with": "Julia Rosenson",
                     "date": "Monday, July 13th, 10:00 PM",
+                    "viewed": true,
                 },
             ]
         }
         this.handleOptionChange = this.handleOptionChange.bind(this);
         this.handleSelectBet = this.handleSelectBet.bind(this);
+        this.renderBets = this.renderBets.bind(this);
     }
 
     handleOptionChange(e) {
@@ -87,15 +91,17 @@ export default class Bets extends React.Component {
         // TODO: modify notification on click. redux?
     }
 
-    render() {
-
-        const [exchangeBets, socialBets] = [this.state.Exchange, this.state.Friends].map((betGroup, i) =>
+    renderBets() {
+        const [exchangeBets, socialBets] = ["Exchange", "Social"].map((betType, i) =>
+            this.state.bets.filter(bet => bet.betType === betType)
+        )
+        const [exchangeBetCells, socialBetCells] = [exchangeBets, socialBets].map((betGroup, i) =>
             betGroup.map((bet, key) =>
                 <TableViewCell
                     title={bet.teamFor}
                     info={["vs " + bet.teamAgainst, bet.date]}
                     tag={"$" + bet.amount + " to win $" + bet.amountToWin}
-                    notification={true}
+                    notification={bet.viewed}
                     key={key}
                     value="thing"
                     onClick={this.handleSelectBet}
@@ -115,6 +121,12 @@ export default class Bets extends React.Component {
                 </TableViewCell>
             )
         );
+        return [exchangeBetCells, socialBetCells];
+    }
+
+    render() {
+
+        const [exchangeBetCells, socialBetCells] = this.renderBets();
 
         return (
             <TableView title="Your Bets">
@@ -139,10 +151,10 @@ export default class Bets extends React.Component {
                     />
                 </ButtonBar>
                 <TableViewPanel title="Exchange">
-                    {exchangeBets}
+                    {exchangeBetCells}
                 </TableViewPanel>
                 <TableViewPanel title="Social">
-                    {socialBets}
+                    {socialBetCells}
                 </TableViewPanel>
             </TableView>
         );
