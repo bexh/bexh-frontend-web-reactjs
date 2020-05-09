@@ -14,50 +14,50 @@ import {
   withRouter,
 } from 'react-router-dom';
 
-const fakeAuth = {
-  isAuthenticated: false,
-  authenticate(cb) {
-    this.isAuthenticated = true;
-    setTimeout(cb, 100); // fake async
-  },
-  signout(cb) {
-    this.isAuthenticated = false;
-    setTimeout(cb, 100);
-  }
-}
+// const fakeAuth = {
+//   isAuthenticated: false,
+//   authenticate(cb) {
+//     this.isAuthenticated = true;
+//     setTimeout(cb, 100); // fake async
+//   },
+//   signout(cb) {
+//     this.isAuthenticated = false;
+//     setTimeout(cb, 100);
+//   }
+// }
 
-const AuthButton = withRouter(({ history }) => (
-  fakeAuth.isAuthenticated === true
-  ? <p>
-    Welcome! <button onClick={() => {
-      fakeAuth.signout(() => history.push('/'))
-    }}>Sign Out</button>
-  </p>
-  : <p> You are not logged in.</p>
-));
+// const AuthButton = withRouter(({ history }) => (
+//   fakeAuth.isAuthenticated === true
+//   ? <p>
+//     Welcome! <button onClick={() => {
+//       fakeAuth.signout(() => history.push('/'))
+//     }}>Sign Out</button>
+//   </p>
+//   : <p> You are not logged in.</p>
+// ));
 
-const PrivateRoute = ({ component: Component, ...rest }) => (
-  <Route {...rest} render={(props) => (
-    fakeAuth.isAuthenticated === true
-    ? <Component {...props} />
-    : <Redirect to={{
-        pathname: '/login',
-        state: { from: props.location },
-    }} />
-  )} />
-);
+// const PrivateRoute = ({ component: Component, ...rest }) => (
+//   <Route {...rest} render={(props) => (
+//     fakeAuth.isAuthenticated === true
+//     ? <Component {...props} />
+//     : <Redirect to={{
+//         pathname: '/login',
+//         state: { from: props.location },
+//     }} />
+//   )} />
+// );
 
 class Login extends React.Component {
   state = {
     redirectToReferrer: false
   }
-  login = () => {
-    fakeAuth.authenticate(() => {
-      this.setState(() => ({
-        redirectToReferrer: true,
-      }))
-    })
-  }
+  // login = () => {
+  //   fakeAuth.authenticate(() => {
+  //     this.setState(() => ({
+  //       redirectToReferrer: true,
+  //     }))
+  //   })
+  // }
   render() {
     const { from } = this.props.location.state || { from: { pathname: '/' } };
     if (this.state.redirectToReferrer === true) {
@@ -83,11 +83,11 @@ function App() {
     <Router>
       <div className="App">
         <Route path="/" component={NavBar} />
-        <AuthButton />
+        {/* <AuthButton /> */}
         <Route exact path="/" component={Landing} />
         <Route path="/login" component={Login} />
-        <PrivateRoute path="/event" component={Event} />
-        <PrivateRoute path="/sports" component={Sports} />
+        <Route path="/event" component={Event} />
+        <Route path="/sports" component={Sports} />
       </div>
     </Router>
   );
