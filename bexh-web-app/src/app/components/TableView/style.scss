@@ -1,6 +1,6 @@
 @import '../../../sass/main.scss';
 
-.tableContainer {
+.tableView {
     @include boxshadow;
     display: flex;
     flex-direction: column;
@@ -8,7 +8,7 @@
     max-width: 600px;
 }
 
-.tableTitle {
+.tableView__title {
     flex: 1;
     display: flex;
     align-items: center;
@@ -19,7 +19,7 @@
     border-bottom: 3px solid $darkBlack;
 }
 
-.tablePanelContainer {
+.tableView__body {
     flex: 1;
     display: flex;
     flex-direction: column;

@@ -5,9 +5,9 @@ export default class TableView extends React.Component {
     render() {
 
         return (
-            <div className="tableContainer">
-                <div className="tableTitle">{this.props.title}</div>
-                <div className="tablePanelContainer">
+            <div className="tableView">
+                <div className="tableView__title">{this.props.title}</div>
+                <div className="tableView__body">
                     {this.props.children}
                 </div>
             </div>

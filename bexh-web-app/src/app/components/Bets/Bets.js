@@ -16,7 +16,7 @@ class Bets extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            "selectedTab": null,
+            "selectedTab": "Active",
         };
         //     "bets": [
         //         {
@@ -141,19 +141,19 @@ class Bets extends React.Component {
             <TableView title="Your Bets">
                 <ButtonBar>
                     <Button
-                        className="tabButton"
+                        className="button--tabButton"
                         title="Active"
                         selected={this.state.selectedTab === "Active"}
                         onClick={this.handleOptionChange}
                     />
                     <Button
-                        className="tabButton"
+                        className="button--tabButton"
                         title="Pending"
                         selected={this.state.selectedTab === "Pending"}
                         onClick={this.handleOptionChange}
                     />
                     <Button
-                        className="tabButton"
+                        className="button--tabButton"
                         title="Complete"
                         selected={this.state.selectedTab === "Complete"}
                         onClick={this.handleOptionChange}

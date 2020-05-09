@@ -4,7 +4,7 @@ import './style.scss';
 export default class ButtonBar extends React.Component {
     render() {
         return (
-            <div className="buttonBarContainer">
+            <div className="buttonBar">
                 {this.props.children}
             </div>
         );

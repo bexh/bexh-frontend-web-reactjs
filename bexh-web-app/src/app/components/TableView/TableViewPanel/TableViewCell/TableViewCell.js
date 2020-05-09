@@ -19,20 +19,20 @@ export default class TableViewCell extends React.Component {
 
     render() {
         const infos = this.props.info.map((item, key) =>
-            <div className="info" key={key}>{item}</div>
+            <div className="tableViewCell__info" key={key}>{item}</div>
         );
         return (
             <TableViewCellOnClickHelper value={this.props.value} onClick={this.handleCellSelect}>
-                <div className="cellMainContainer">
-                    <div className="cellNotification">
-                        {this.props.notification && <span className="dot" />}
+                <div className="tableViewCell">
+                    <div className="tableViewCell__notification">
+                        {this.props.notification && <span className="tableViewCell__dot" />}
                     </div>
-                    <div className="cellLeft">
-                        <div className="title">{this.props.title}</div>
+                    <div className="tableViewCell__left">
+                        <div className="tableViewCell__title">{this.props.title}</div>
                         {infos}
                     </div>
-                    <div className="cellRight">
-                        <div className="tag">{this.props.tag}</div>
+                    <div className="tableViewCell__right">
+                        <div className="tableViewCell__tag">{this.props.tag}</div>
                     </div>
                 </div>
                 {this.state.selected ? this.props.children : null }
@@ -53,7 +53,7 @@ class TableViewCellOnClickHelper extends React.Component {
 
     render() {
         return (
-            <div className="cell" onClick={this.handleClick}>
+            <div className="tableViewCellOnClickHelper" onClick={this.handleClick}>
                 {this.props.children}
             </div>
         );

@@ -1,11 +1,11 @@
 @import '../../../../../../sass/main';
 
-.dropdownContainer {
+.tableViewCellDropdown {
     display: flex;
     flex-direction: column;
 }
 
-.dropdownInfoContainer {
+.tableViewCellDropdown__info {
     display: flex;
     justify-content: space-evenly;
     margin-top: 5px;
@@ -14,7 +14,7 @@
     font-weight: bold;
 }
 
-.dropdownChildrenContainer {
+.tableViewCellDropdown__children {
     flex: 1;
     display: flex;
     min-height: 45px;
