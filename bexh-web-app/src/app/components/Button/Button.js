@@ -5,7 +5,7 @@ export default class Button extends React.Component {
     render() {
         return (
             <div 
-                className={["button", this.props.selected && 'selected', this.props.className]
+                className={["button", this.props.selected && 'button--selected', this.props.className]
                     .filter(e => !!e)
                     .join(' ')}
                 style={this.props.style ? this.props.style : null}

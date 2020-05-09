@@ -18,12 +18,12 @@
     filter: brightness(120%);
 }
 
-.tabButton:hover {
+.button--tabButton:hover {
     color: $green;
     border-bottom: 4px solid $green;
 }
 
-.selected {
+.button--selected {
     color: $green;
     border-bottom: 4px solid $green;
 }
