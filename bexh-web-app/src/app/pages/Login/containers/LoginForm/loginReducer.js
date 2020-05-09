@@ -1,4 +1,4 @@
-import { ATTEMPT_LOGIN } from '../actions/types';
+import { ATTEMPT_LOGIN } from '../../../../../redux/types';
 
 const initialState = {
     item: {loggedIn: false},

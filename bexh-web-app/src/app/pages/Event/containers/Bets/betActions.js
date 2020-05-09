@@ -1,4 +1,4 @@
-import { FETCH_BETS, FETCH_MORE_BETS, NEW_BET } from './types';
+import { FETCH_BETS, FETCH_MORE_BETS, NEW_BET } from '../../../../../redux/types';
 
 export const fetchBets = (params) => dispatch => {
     console.log("fetching bets");

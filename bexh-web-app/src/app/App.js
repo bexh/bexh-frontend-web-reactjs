@@ -5,6 +5,7 @@ import {
   Landing,
   Sports,
   Login,
+  Portfolio,
 } from './pages';
 import { NavBar } from './components';
 import {
@@ -85,9 +86,10 @@ function App() {
       <div className="App">
         <Route path="/" component={NavBar} />
         <Route exact path="/" component={Landing} />
-        <Route path="/login" component={Login} />
+        <Route exact path="/login" component={Login} />
         <Route path="/event" component={Event} />
         <Route path="/sports" component={Sports} />
+        <Route path="/portfolio" component={Portfolio} />
       </div>
     </Router>
   );

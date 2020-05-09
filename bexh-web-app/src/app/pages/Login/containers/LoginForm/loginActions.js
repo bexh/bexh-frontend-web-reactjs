@@ -1,4 +1,4 @@
-import { ATTEMPT_LOGIN } from './types';
+import { ATTEMPT_LOGIN } from '../../../../../redux/types';
 
 export const login = () => dispatch => {
     dispatch({

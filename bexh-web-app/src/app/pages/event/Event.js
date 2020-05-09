@@ -3,8 +3,8 @@ import {
     EventInfo,
     EventGraph,
     MakeBet,
-    Bets,
 } from '../../components';
+import Bets from './containers/Bets/Bets';
 import './style.scss';
 
 export default class Event extends React.Component {

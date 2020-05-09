@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { fetchBets, fetchMoreBets } from '../../redux/actions/betActions';
+import { fetchBets, fetchMoreBets } from './betActions';
 import {
     TableView,
     TableViewCell,
@@ -9,7 +9,7 @@ import {
     ButtonBar,
     Button,
     TableViewCellDropdown,
-} from '../../components';
+} from '../../../../components';
 import './style.scss';
 
 class Bets extends React.Component {
