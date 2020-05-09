@@ -4,6 +4,7 @@ import {
   Event,
   Landing,
   Sports,
+  Login,
 } from './pages';
 import { NavBar } from './components';
 import {
@@ -47,35 +48,35 @@ import {
 //   )} />
 // );
 
-class Login extends React.Component {
-  state = {
-    redirectToReferrer: false
-  }
-  // login = () => {
-  //   fakeAuth.authenticate(() => {
-  //     this.setState(() => ({
-  //       redirectToReferrer: true,
-  //     }))
-  //   })
-  // }
-  render() {
-    const { from } = this.props.location.state || { from: { pathname: '/' } };
-    if (this.state.redirectToReferrer === true) {
-      return (
-        <Redirect to={from} />
-      );
-    }
-    else {
-      return (
-        <div>
-          <h2>log in</h2>
-          <p>you must log in to view this page at {from.pathname}</p>
-          <button onClick={this.login}>log in</button>
-        </div>
-      )
-    }
-  }
-}
+// class Login extends React.Component {
+//   state = {
+//     redirectToReferrer: false
+//   }
+//   login = () => {
+//     fakeAuth.authenticate(() => {
+//       this.setState(() => ({
+//         redirectToReferrer: true,
+//       }))
+//     })
+//   }
+//   render() {
+//     const { from } = this.props.location.state || { from: { pathname: '/' } };
+//     if (this.state.redirectToReferrer === true) {
+//       return (
+//         <Redirect to={from} />
+//       );
+//     }
+//     else {
+//       return (
+//         <div>
+//           <h2>log in</h2>
+//           <p>you must log in to view this page at {from.pathname}</p>
+//           <button onClick={this.login}>log in</button>
+//         </div>
+//       )
+//     }
+//   }
+// }
 
 
 function App() {
@@ -83,7 +84,6 @@ function App() {
     <Router>
       <div className="App">
         <Route path="/" component={NavBar} />
-        {/* <AuthButton /> */}
         <Route exact path="/" component={Landing} />
         <Route path="/login" component={Login} />
         <Route path="/event" component={Event} />
