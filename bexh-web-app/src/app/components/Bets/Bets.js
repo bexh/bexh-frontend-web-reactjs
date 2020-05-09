@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { fetchBets } from '../../redux/actions/betActions';
+import { fetchBets, fetchMoreBets } from '../../redux/actions/betActions';
 import {
     TableView,
     TableViewCell,
@@ -17,6 +17,8 @@ class Bets extends React.Component {
         super(props)
         this.state = {
             "selectedTab": "Active",
+            "exchangePage": 1,
+            "socialPage": 1,
         };
         //     "bets": [
         //         {
@@ -83,6 +85,7 @@ class Bets extends React.Component {
         this.handleOptionChange = this.handleOptionChange.bind(this);
         this.handleSelectBet = this.handleSelectBet.bind(this);
         this.renderBets = this.renderBets.bind(this);
+        this.onReachBottom = this.onReachBottom.bind(this);
     }
 
     componentWillMount() {
@@ -97,6 +100,26 @@ class Bets extends React.Component {
 
     handleSelectBet(value) {
         // TODO: modify notification on click. redux?
+    }
+
+    onReachBottom(params) {
+        switch (params.title) {
+            case "Exchange":
+                this.setState((prevState) => ({
+                    exchangePage: prevState.exchangePage + 1,
+                }));
+                this.props.fetchMoreBets({title: params.title, page: this.state.exchangePage});
+                break;
+            case "Social":
+                this.setState((prevState) => ({
+                    socialPage: prevState.socialPage + 1,
+                }));
+                this.props.fetchMoreBets({title: params.title, page: this.state.socialPage});
+                break;
+            default:
+                console.log("NOT A VALID PANEL TITLE");
+                break;
+        }
     }
 
     renderBets() {
@@ -159,10 +182,10 @@ class Bets extends React.Component {
                         onClick={this.handleOptionChange}
                     />
                 </ButtonBar>
-                <TableViewPanel title="Exchange">
+                <TableViewPanel title="Exchange" onReachBottom={this.onReachBottom}>
                     {exchangeBetCells}
                 </TableViewPanel>
-                <TableViewPanel title="Social">
+                <TableViewPanel title="Social" onReachBottom={this.onReachBottom}>
                     {socialBetCells}
                 </TableViewPanel>
             </TableView>
@@ -172,6 +195,7 @@ class Bets extends React.Component {
 
 Bets.propTypes = {
     fetchBets: PropTypes.func.isRequired,
+    fetchMoreBets: PropTypes.func.isRequired,
     bets: PropTypes.array.isRequired,
 }
 
@@ -179,4 +203,4 @@ const mapStateToProps = state => ({
     bets: state.bets.items,
 })
 
-export default connect(mapStateToProps, { fetchBets })(Bets);
+export default connect(mapStateToProps, { fetchBets, fetchMoreBets })(Bets);
