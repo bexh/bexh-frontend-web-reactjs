@@ -100,6 +100,7 @@ class Bets extends React.Component {
 
     handleSelectBet(value) {
         // TODO: modify notification on click. redux?
+
     }
 
     onReachBottom(params) {
@@ -138,7 +139,7 @@ class Bets extends React.Component {
                     value="thing"
                     onClick={this.handleSelectBet}
                 >
-                    <TableViewCellDropdown info={["Odds: +300", "On: Pistons", "With: Gilfoyle"]}>
+                    {/* <TableViewCellDropdown info={["Odds: +300", "On: Pistons", "With: Gilfoyle"]}>
                         <ButtonBar>
                             <Button
                                 title="Accept"
@@ -149,7 +150,7 @@ class Bets extends React.Component {
                                 style={{ background: "#A4412C" }}
                             />
                         </ButtonBar>
-                    </TableViewCellDropdown>
+                    </TableViewCellDropdown> */}
                 </TableViewCell>
             )
         );

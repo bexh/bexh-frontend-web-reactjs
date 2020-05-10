@@ -22,21 +22,42 @@ export default class TableViewCell extends React.Component {
             <div className="tableViewCell__info" key={key}>{item}</div>
         );
         return (
-            <TableViewCellOnClickHelper value={this.props.value} onClick={this.handleCellSelect}>
-                <div className="tableViewCell">
-                    <div className="tableViewCell__notification">
-                        {this.props.notification && <span className="tableViewCell__dot" />}
+            // <TableViewCellOnClickHelper value={this.props.value} onClick={this.handleCellSelect}>
+            //     {!this.state.selected ?
+            //         <div className="tableViewCell">
+            //             <div className="tableViewCell__notification">
+            //                 {this.props.notification && <span className="tableViewCell__dot" />}
+            //             </div>
+            //             <div className="tableViewCell__left">
+            //                 <div className="tableViewCell__title">{this.props.title}</div>
+            //                 {infos}
+            //             </div>
+            //             <div className="tableViewCell__right">
+            //                 <div className="tableViewCell__tag">{this.props.tag}</div>
+            //             </div>
+            //         </div>
+            //         :
+            //         <div/>}
+            // </TableViewCellOnClickHelper>
+            <div class={this.state.selected ? "flip-card flip-card-selected" : " flip-card"} onClick={this.handleCellSelect}>
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <div className="tableViewCell__notification">
+                            {this.props.notification && <span className="tableViewCell__dot" />}
+                        </div>
+                        <div className="tableViewCell__left">
+                            <div className="tableViewCell__title">{this.props.title}</div>
+                            {infos}
+                        </div>
+                        <div className="tableViewCell__right">
+                            <div className="tableViewCell__tag">{this.props.tag}</div>
+                        </div>
                     </div>
-                    <div className="tableViewCell__left">
-                        <div className="tableViewCell__title">{this.props.title}</div>
-                        {infos}
-                    </div>
-                    <div className="tableViewCell__right">
-                        <div className="tableViewCell__tag">{this.props.tag}</div>
+                    <div class="flip-card-back">
+                        back
                     </div>
                 </div>
-                {this.state.selected ? this.props.children : null }
-            </TableViewCellOnClickHelper>
+            </div>
         );
     }
 }
@@ -57,6 +78,6 @@ class TableViewCellOnClickHelper extends React.Component {
                 {this.props.children}
             </div>
         );
-        
+
     }
 }
