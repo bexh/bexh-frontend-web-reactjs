@@ -138,6 +138,8 @@ class Bets extends React.Component {
                     key={key}
                     value="thing"
                     onClick={this.handleSelectBet}
+                    backDetails={["detail 1", "detail 2"]}
+                    backButtons={["change to button type", "pls"]}
                 >
                     {/* <TableViewCellDropdown info={["Odds: +300", "On: Pistons", "With: Gilfoyle"]}>
                         <ButtonBar>

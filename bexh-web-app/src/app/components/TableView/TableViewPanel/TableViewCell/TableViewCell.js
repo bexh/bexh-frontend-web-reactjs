@@ -22,26 +22,9 @@ export default class TableViewCell extends React.Component {
             <div className="tableViewCell__info" key={key}>{item}</div>
         );
         return (
-            // <TableViewCellOnClickHelper value={this.props.value} onClick={this.handleCellSelect}>
-            //     {!this.state.selected ?
-            //         <div className="tableViewCell">
-            //             <div className="tableViewCell__notification">
-            //                 {this.props.notification && <span className="tableViewCell__dot" />}
-            //             </div>
-            //             <div className="tableViewCell__left">
-            //                 <div className="tableViewCell__title">{this.props.title}</div>
-            //                 {infos}
-            //             </div>
-            //             <div className="tableViewCell__right">
-            //                 <div className="tableViewCell__tag">{this.props.tag}</div>
-            //             </div>
-            //         </div>
-            //         :
-            //         <div/>}
-            // </TableViewCellOnClickHelper>
-            <div class={this.state.selected ? "flip-card flip-card-selected" : " flip-card"} onClick={this.handleCellSelect}>
-                <div class="flip-card-inner">
-                    <div class="flip-card-front">
+            <div class={this.state.selected ? "tableViewCell__flipCard tableViewCell__flipCardSelected" : " tableViewCell__flipCard"} onClick={this.handleCellSelect}>
+                <div class="tableViewCell__flipCardInner">
+                    <div class="tableViewCell__flipCardFront">
                         <div className="tableViewCell__notification">
                             {this.props.notification && <span className="tableViewCell__dot" />}
                         </div>
@@ -53,8 +36,18 @@ export default class TableViewCell extends React.Component {
                             <div className="tableViewCell__tag">{this.props.tag}</div>
                         </div>
                     </div>
-                    <div class="flip-card-back">
-                        back
+                    <div class="tableViewCell__flipCardBack">
+                        <div className="tableViewCell__left">
+                            {this.props.backDetails.map((item, key) =>
+                                <div>{item}</div>
+                            )}
+                        </div>
+                        <div className="tableViewCell__backRight">
+                        {this.props.backButtons.map((item, key) =>
+                                <div>{item}</div>
+                            )}
+                        </div>
+                        
                     </div>
                 </div>
             </div>
