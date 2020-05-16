@@ -1,8 +1,8 @@
 import { FETCH_BETS, FETCH_MORE_BETS, NEW_BET } from '../../../../../redux/types';
 
 export const fetchBets = (params) => dispatch => {
-    console.log("fetching bets");
-    fetch('https://my.api.mockaroo.com/bets', {
+    console.log("FETCH BETS", params);
+    fetch(`https://my.api.mockaroo.com/bets?page=${params.page}&market=${params.betMarket}&status=${params.status}`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
@@ -18,9 +18,9 @@ export const fetchBets = (params) => dispatch => {
 };
 
 export const fetchMoreBets = (params) => dispatch => {
-    const panelTitle = params.title;
-    console.log("fetch more bets for " + panelTitle);
-    fetch('https://my.api.mockaroo.com/bets', {
+    console.log("FETCH MORE BETS", params);
+    console.log("FETCH URL", `https://my.api.mockaroo.com/bets?page=${params.page}&market=${params.betMarket}&status=${params.status}`);
+    fetch(`https://my.api.mockaroo.com/bets?page=${params.page}&market=${params.betMarket}&status=${params.status}`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',

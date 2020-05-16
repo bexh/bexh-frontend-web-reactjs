@@ -82,19 +82,23 @@ class Bets extends React.Component {
         //         },
         //     ]
         // }
-        this.handleOptionChange = this.handleOptionChange.bind(this);
+        this.handleBetStatusChange = this.handleBetStatusChange.bind(this);
         this.handleSelectBet = this.handleSelectBet.bind(this);
         this.renderBets = this.renderBets.bind(this);
         this.onReachBottom = this.onReachBottom.bind(this);
     }
 
     componentWillMount() {
-        this.props.fetchBets();
+        this.props.fetchBets({betMarket: "all", page: 1, status: "Active"});
     }
 
-    handleOptionChange(e) {
+    handleBetStatusChange(e) {
+        const status = e.target.value;
+        this.props.fetchBets({betMarket: e.currentTarget.value, page: 1, status: status})
         this.setState({
-            selectedTab: e.currentTarget.value,
+            selectedTab: status,
+            exchangePage: 1,
+            socialPage: 1,
         });
     }
 
@@ -104,18 +108,19 @@ class Bets extends React.Component {
     }
 
     onReachBottom(params) {
+        console.log("PARAM TITLE:", params.title);
         switch (params.title) {
             case "Exchange":
                 this.setState((prevState) => ({
                     exchangePage: prevState.exchangePage + 1,
                 }));
-                this.props.fetchMoreBets({title: params.title, page: this.state.exchangePage});
+                this.props.fetchMoreBets({betMarket: params.title, page: this.state.exchangePage});
                 break;
             case "Social":
                 this.setState((prevState) => ({
                     socialPage: prevState.socialPage + 1,
                 }));
-                this.props.fetchMoreBets({title: params.title, page: this.state.socialPage});
+                this.props.fetchMoreBets({betMarket: params.title, page: this.state.socialPage});
                 break;
             default:
                 console.log("NOT A VALID PANEL TITLE");
@@ -140,20 +145,7 @@ class Bets extends React.Component {
                     onClick={this.handleSelectBet}
                     backDetails={["detail 1", "detail 2"]}
                     backButtons={["change to button type", "pls"]}
-                >
-                    {/* <TableViewCellDropdown info={["Odds: +300", "On: Pistons", "With: Gilfoyle"]}>
-                        <ButtonBar>
-                            <Button
-                                title="Accept"
-                                style={{ "background": "#1E7958" }}
-                            />
-                            <Button
-                                title="Decline"
-                                style={{ background: "#A4412C" }}
-                            />
-                        </ButtonBar>
-                    </TableViewCellDropdown> */}
-                </TableViewCell>
+                />
             )
         );
         return [exchangeBetCells, socialBetCells];
@@ -170,19 +162,19 @@ class Bets extends React.Component {
                         className="button--tabButton"
                         title="Active"
                         selected={this.state.selectedTab === "Active"}
-                        onClick={this.handleOptionChange}
+                        onClick={this.handleBetStatusChange}
                     />
                     <Button
                         className="button--tabButton"
                         title="Pending"
                         selected={this.state.selectedTab === "Pending"}
-                        onClick={this.handleOptionChange}
+                        onClick={this.handleBetStatusChange}
                     />
                     <Button
                         className="button--tabButton"
                         title="Complete"
                         selected={this.state.selectedTab === "Complete"}
-                        onClick={this.handleOptionChange}
+                        onClick={this.handleBetStatusChange}
                     />
                 </ButtonBar>
                 <TableViewPanel title="Exchange" onReachBottom={this.onReachBottom}>
