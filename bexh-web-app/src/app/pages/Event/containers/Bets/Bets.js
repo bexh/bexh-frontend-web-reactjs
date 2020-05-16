@@ -20,81 +20,22 @@ class Bets extends React.Component {
             "exchangePage": 1,
             "socialPage": 1,
         };
-        //     "bets": [
-        //         {
-        //             "betType": "Exchange",
-        //             "amount": 221,
-        //             "teamFor": "Detroit Pistons",
-        //             "teamAgainst": "Cleveland Cavaliers",
-        //             "amountToWin": 151,
-        //             "odds": 300,
-        //             "status": "Active",
-        //             "date": "Monday, July 13th, 10:00 PM",
-        //             "viewed": true,
-        //         },
-        //         {
-        //             "betType": "Exchange",
-        //             "amount": 20,
-        //             "teamFor": "Cleveland Cavaliers",
-        //             "teamAgainst": "Detroit Pistons",
-        //             "amountToWin": 150,
-        //             "odds": -200,
-        //             "status": "Pending",
-        //             "orderType": "Limit",
-        //             "date": "Monday, July 13th, 10:00 PM",
-        //             "viewed": false,
-        //         },
-        //         {
-        //             "betType": "Exchange",
-        //             "amount": 50,
-        //             "teamFor": "Detroit Pistons",
-        //             "teamAgainst": "Cleveland Cavaliers",
-        //             "amountToWin": 22,
-        //             "odds": 300,
-        //             "status": "Active",
-        //             "orderType": "Limit",
-        //             "date": "Monday, July 13th, 10:00 PM",
-        //             "viewed": true,
-        //         },
-        //         {
-        //             "betType": "Social",
-        //             "amount": 10,
-        //             "teamFor": "Detroit Pistons",
-        //             "teamAgainst": "Cleveland Cavaliers",
-        //             "amountToWin": 20,
-        //             "odds": 200,
-        //             "status": "PendingYou",
-        //             "with": "Eris Llangos",
-        //             "date": "Monday, July 13th, 10:00 PM",
-        //             "viewed": true,
-        //         },
-        //         {
-        //             "betType": "Social",
-        //             "amount": 10000,
-        //             "teamFor": "Cleveland Cavaliers",
-        //             "teamAgainst": "Detroit Pistons",
-        //             "amountToWin": 10000,
-        //             "odds": 0,
-        //             "status": "PendingThem",
-        //             "with": "Julia Rosenson",
-        //             "date": "Monday, July 13th, 10:00 PM",
-        //             "viewed": true,
-        //         },
-        //     ]
-        // }
         this.handleBetStatusChange = this.handleBetStatusChange.bind(this);
         this.handleSelectBet = this.handleSelectBet.bind(this);
+        this.determineTag = this.determineTag.bind(this);
+        this.determineBackDetails = this.determineBackDetails.bind(this);
+        this.determineBackButtons = this.determineBackButtons.bind(this);
         this.renderBets = this.renderBets.bind(this);
         this.onReachBottom = this.onReachBottom.bind(this);
     }
 
-    componentWillMount() {
+    componentDidMount() {
         this.props.fetchBets({betMarket: "all", page: 1, status: "Active"});
     }
 
     handleBetStatusChange(e) {
         const status = e.target.value;
-        this.props.fetchBets({betMarket: e.currentTarget.value, page: 1, status: status})
+        this.props.fetchBets({betMarket: "all", page: 1, status: status})
         this.setState({
             selectedTab: status,
             exchangePage: 1,
@@ -114,18 +55,61 @@ class Bets extends React.Component {
                 this.setState((prevState) => ({
                     exchangePage: prevState.exchangePage + 1,
                 }));
-                this.props.fetchMoreBets({betMarket: params.title, page: this.state.exchangePage});
+                this.props.fetchMoreBets({betMarket: params.title, page: this.state.exchangePage, status: this.state.selectedTab});
                 break;
             case "Social":
                 this.setState((prevState) => ({
                     socialPage: prevState.socialPage + 1,
                 }));
-                this.props.fetchMoreBets({betMarket: params.title, page: this.state.socialPage});
+                this.props.fetchMoreBets({betMarket: params.title, page: this.state.socialPage, status: this.state.selectedTab});
                 break;
             default:
                 console.log("NOT A VALID PANEL TITLE");
                 break;
         }
+    }
+
+    determineTag(amount, amountToWin, win, status) {
+        console.log("determining tag", amount, amountToWin, win, status);
+        if (status === "Complete") {
+            return (win ? `+${amountToWin}` : `-${amount}`);
+        }
+        else {
+            return (`\$${amount} to win \$${amountToWin}`);
+        }
+    }
+
+    determineBackDetails(status, orderType, betType, betWith, odds) {
+        // if social, needs status (Pending You vs Pending Them) and with
+        // if pending exchange, needs order type
+        // all need odds
+        let backDetails = [`Odds: ${odds}`]
+        if (betType === "Social") {
+            backDetails.push(`Status: ${status}`);
+            backDetails.push(`With: ${betWith}`);
+        }
+        else if (betType == "Exchange" && status == "Pending") {
+            backDetails.push(`Order Type: ${orderType}`);
+        }
+        return backDetails;
+    }
+
+    determineBackButtons(status, betType) {
+        // if social and pending them, needs cancel
+        // if social and pending you, needs accept decline counter
+        // if exchange and pending, needs cancel
+        if (betType === "Social") {
+            if (status === "PendingYou") {
+                return (["Accept", "Decline", "Counter"]);
+            }
+            else if (status === "PendingThem") {
+                return (["Cancel"]);
+            }
+        }
+        else if (betType === "Exchange" && status === "Pending") {
+            return (["Cancel"]);
+        }
+        return [];
     }
 
     renderBets() {
@@ -134,19 +118,27 @@ class Bets extends React.Component {
             this.props.bets.filter(bet => bet.betType === betType)
         )
         const [exchangeBetCells, socialBetCells] = [exchangeBets, socialBets].map((betGroup, i) =>
-            betGroup.map((bet, key) =>
-                <TableViewCell
-                    title={bet.teamFor}
-                    info={["vs " + bet.teamAgainst, bet.date]}
-                    tag={"$" + bet.amount + " to win $" + bet.amountToWin}
-                    notification={bet.viewed}
-                    key={key}
-                    value="thing"
-                    onClick={this.handleSelectBet}
-                    backDetails={["detail 1", "detail 2"]}
-                    backButtons={["change to button type", "pls"]}
-                />
-            )
+            betGroup.map((bet, key) => {
+                console.log("BET", bet);
+                const teamAgainstPrefix = bet.teamFor === bet.homeTeam ? "vs " : "at ";
+                const tag = this.determineTag(bet.amount, bet.amountToWin, bet.win, bet.status);
+                const backDetails = this.determineBackDetails(bet.status, bet.orderType, bet.betType, bet.with, bet.odds);
+                const backButtons = this.determineBackButtons(bet.status, bet.betType);
+                console.log("BACK BUTTONS", backButtons);
+                return (
+                    <TableViewCell
+                        title={bet.teamFor}
+                        info={[teamAgainstPrefix + bet.teamAgainst, bet.date]}
+                        tag={tag}
+                        notification={bet.viewed}
+                        key={bet.id}
+                        value={bet.id}
+                        onClick={this.handleSelectBet}
+                        backDetails={backDetails}
+                        backButtons={backButtons}
+                    />
+                );
+            })
         );
         return [exchangeBetCells, socialBetCells];
     }
