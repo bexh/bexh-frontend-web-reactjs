@@ -1,5 +1,6 @@
 import React from 'react';
 import './style.scss';
+import PropTypes from 'prop-types';
 
 export default class TableViewCell extends React.Component {
     constructor(props) {
@@ -52,6 +53,25 @@ export default class TableViewCell extends React.Component {
             </div>
         );
     }
+}
+
+// TODO: change this when buttons are actually buttons
+TableViewCell.propTypes = {
+    title: PropTypes.string.isRequired,
+    onClick: PropTypes.func.isRequired,
+    info: PropTypes.arrayOf(PropTypes.string),
+    notification: PropTypes.bool,
+    backButtons: PropTypes.string,
+    backDetails: PropTypes.arrayOf(PropTypes.string),
+    tag: PropTypes.string,
+}
+
+TableViewCell.defaultProps = {
+    info: [],
+    notification: false,
+    backButtons: [],
+    backDetails: [],
+    tag: null,
 }
 
 class TableViewCellOnClickHelper extends React.Component {

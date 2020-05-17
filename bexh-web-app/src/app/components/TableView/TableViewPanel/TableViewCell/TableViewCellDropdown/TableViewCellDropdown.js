@@ -1,5 +1,6 @@
 import React from 'react';
 import './style.scss';
+import PropTypes from 'prop-types';
 
 export default class TableViewCellDropdown extends React.Component {
     render() {
@@ -20,4 +21,8 @@ export default class TableViewCellDropdown extends React.Component {
             </div>
         );
     }
+}
+
+TableViewCellDropdown.propTypes = {
+    info: PropTypes.arrayOf(PropTypes.string).isRequired,
 }

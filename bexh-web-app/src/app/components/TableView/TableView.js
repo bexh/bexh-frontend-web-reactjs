@@ -1,5 +1,6 @@
 import React from 'react';
 import './style.scss';
+import PropTypes from 'prop-types';
 
 export default class TableView extends React.Component {
     render() {
@@ -14,3 +15,9 @@ export default class TableView extends React.Component {
         );
     }
 }
+
+TableView.propTypes = {
+    title: PropTypes.string.isRequired,
+}
+
+TableView.defaultProps = {}

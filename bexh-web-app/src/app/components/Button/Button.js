@@ -1,5 +1,6 @@
 import React from 'react';
 import './style.scss';
+import PropTypes from 'prop-types';
 
 export default class Button extends React.Component {
     render() {
@@ -19,4 +20,16 @@ export default class Button extends React.Component {
             </div>
         );
     }
+}
+
+Button.propTypes = {
+    selected: PropTypes.bool,
+    className: PropTypes.string,
+    style: PropTypes.shape({}),
+}
+
+Button.defaultProps = {
+    selected: false,
+    className: null,
+    style: null,
 }

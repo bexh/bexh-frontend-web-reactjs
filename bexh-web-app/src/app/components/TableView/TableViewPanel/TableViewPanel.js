@@ -1,5 +1,6 @@
 import React from 'react';
 import './style.scss';
+import PropTypes from 'prop-types';
 
 export default class TableViewPanel extends React.Component {
     constructor(props) {
@@ -40,4 +41,13 @@ export default class TableViewPanel extends React.Component {
 
         );
     }
+}
+
+TableViewPanel.propTypes = {
+    title: PropTypes.string.isRequired,
+    onReachBottom: PropTypes.func,
+}
+
+TableViewPanel.defaultProps = {
+    onReachBottom: () => ({}),
 }
