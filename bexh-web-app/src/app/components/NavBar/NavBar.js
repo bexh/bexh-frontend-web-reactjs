@@ -1,10 +1,7 @@
 import React from 'react';
 import './style.scss';
 import {
-  BrowserRouter as Router,
-  Route,
   Link,
-  Redirect
 } from 'react-router-dom';
 
 export default class NavBar extends React.Component {

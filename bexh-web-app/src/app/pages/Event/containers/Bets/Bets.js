@@ -8,7 +8,6 @@ import {
     TableViewPanel,
     ButtonBar,
     Button,
-    TableViewCellDropdown,
 } from '../../../../components';
 import './style.scss';
 
@@ -44,7 +43,7 @@ class Bets extends React.Component {
     }
 
     handleSelectBet(value) {
-        // TODO: modify notification on click. redux?
+        // TODO: modify notification on click. redux
 
     }
 
@@ -74,9 +73,7 @@ class Bets extends React.Component {
         if (status === "Complete") {
             return (win ? `+${amountToWin}` : `-${amount}`);
         }
-        else {
-            return (`\$${amount} to win \$${amountToWin}`);
-        }
+        return (`$${amount} to win $${amountToWin}`);
     }
 
     determineBackDetails(status, orderType, betType, betWith, odds) {
@@ -88,7 +85,7 @@ class Bets extends React.Component {
             backDetails.push(`Status: ${status}`);
             backDetails.push(`With: ${betWith}`);
         }
-        else if (betType == "Exchange" && status == "Pending") {
+        else if (betType === "Exchange" && status === "Pending") {
             backDetails.push(`Order Type: ${orderType}`);
         }
         return backDetails;

@@ -1,4 +1,4 @@
-import { FETCH_BETS, FETCH_MORE_BETS, NEW_BET } from '../../../../../redux/types';
+import { FETCH_BETS, FETCH_MORE_BETS } from '../../../../../redux/types';
 
 const initialState = {
     items: [],
