@@ -64,9 +64,10 @@ class Events extends React.Component {
                 ]
             }
         }
+        this.renderEventPanels = this.renderEventPanels.bind(this);
     }
 
-    renderEventCell(events) {
+    renderEventPanels(events) {
         let panels = []
         for (var key in events) {
             const eventCells = events.key.map((event, index) => {
@@ -83,14 +84,16 @@ class Events extends React.Component {
             });
             const panel = (
                 <TableViewPanel title={key} >
-
+                    {eventCells}
                 </TableViewPanel>
             )
+            panels.push(panel);
         }
+        return panels;
     }
 
     render() {
-        const eventCells = this.renderEventCells(this.state.events);
+        const eventPanels = this.renderEventPanels(this.state.events);
         return (
             <TableView title={this.props.sport}>
                 {eventCells}
