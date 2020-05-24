@@ -13,7 +13,7 @@ import './style.scss';
 
 class Bets extends React.Component {
     constructor(props) {
-        super(props)
+        super(props);
         this.state = {
             "selectedTab": "Active",
             "exchangePage": 1,
@@ -202,6 +202,7 @@ class Bets extends React.Component {
 Bets.propTypes = {
     fetchBets: PropTypes.func.isRequired,
     fetchMoreBets: PropTypes.func.isRequired,
+    updateBetViewed: PropTypes.func.isRequired,
     bets: PropTypes.array.isRequired,
 }
 
