@@ -1,31 +1,35 @@
 import React from 'react';
 import './style.scss';
+import {
+  Link,
+} from 'react-router-dom';
 
 export default class NavBar extends React.Component {
+    // TODO: set logo back to landing page. needed a way to get to event page temporarily
     render() {
         return (
             <nav role="navigation">
                 <div id="NavLeft">
-                    <div id="Logo"><a href="#">BEXH</a></div>
+                    <div id="Logo"><Link to="/event">BEXH</Link></div>
                     <input id="Search" placeholder=" Search" />
                 </div>
                 <div id="NavRight">
                     <ul>
-                        <li><a>Sports</a>
-                            <ul class="dropdown">
-                                <li><a>Football</a></li>
-                                <li><a>Basketball</a></li>
-                                <li><a>Baseball</a></li>
-                                <li><a>Hockey</a></li>
+                        <li>Sports
+                            <ul className="dropdown">
+                                <li><Link to="/sports/football">Football</Link></li>
+                                <li><Link to="/sports/basketball">Basketball</Link></li>
+                                <li><Link to="/sports/baseball">Baseball</Link></li>
+                                <li><Link to="/sports/hockey">Hockey</Link></li>
                             </ul>
                         </li>
-                        <li><a>User Hub</a></li>
-                        <li><a>Account</a>
-                            <ul class="dropdown">
-                                <li><a>Friends</a></li>
-                                <li><a>Banking</a></li>
-                                <li><a>Settings</a></li>
-                                <li id="LogOut"><a>Log Out</a></li>
+                        <li><Link to="portfolio">User Hub</Link></li>
+                        <li>Account
+                            <ul className="dropdown">
+                                <li><Link to="/friends">Friends</Link></li>
+                                <li><Link to="/banking">Banking</Link></li>
+                                <li><Link to="/settings">Settings</Link></li>
+                                <li id="LogOut"><Link to="/">Log Out</Link></li>
                             </ul>
                         </li>
                     </ul>

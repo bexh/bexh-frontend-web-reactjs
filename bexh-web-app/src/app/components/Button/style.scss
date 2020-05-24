@@ -1,0 +1,29 @@
+@import '../../../sass/main.scss';
+
+.button {
+    flex-grow: 1;
+    flex-basis: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    display: flex;
+    font-size: 14px;
+    font-weight: bold;
+    
+}
+
+.button:hover {
+    cursor: pointer;
+    filter: brightness(120%);
+}
+
+.button--tabButton:hover {
+    color: $green;
+    border-bottom: 4px solid $green;
+}
+
+.button--selected {
+    color: $green;
+    border-bottom: 4px solid $green;
+}
