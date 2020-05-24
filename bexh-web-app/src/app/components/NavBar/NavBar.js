@@ -17,10 +17,10 @@ export default class NavBar extends React.Component {
                     <ul>
                         <li>Sports
                             <ul className="dropdown">
-                                <li><Link to="/sports">Football</Link></li>
-                                <li><Link to="/sports">Basketball</Link></li>
-                                <li><Link to="/sports">Baseball</Link></li>
-                                <li><Link to="/sports">Hockey</Link></li>
+                                <li><Link to="/sports/football">Football</Link></li>
+                                <li><Link to="/sports/basketball">Basketball</Link></li>
+                                <li><Link to="/sports/baseball">Baseball</Link></li>
+                                <li><Link to="/sports/hockey">Hockey</Link></li>
                             </ul>
                         </li>
                         <li><Link to="portfolio">User Hub</Link></li>

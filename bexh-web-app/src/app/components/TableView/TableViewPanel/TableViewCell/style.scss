@@ -1,18 +1,5 @@
 @import "../../../../../sass/main.scss";
 
-// section: on click helper
-
-.tableViewCellOnClickHelper {
-  display: flex;
-  flex-direction: column;
-  border-bottom: 3px solid $darkBlack;
-}
-
-.tableViewCellOnClickHelper:hover {
-  @include boxshadow;
-  cursor: pointer;
-}
-
 // section: table view cell
 
 .tableViewCell__notification {
@@ -38,13 +25,25 @@
   margin-left: 15%;
 }
 
-.tableViewCell__backRight {
+.tableViewCell__top,
+.tableViewCell__bottom {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
   align-items: center;
-  width: 40%;
-  margin-left: 15%;
+  justify-content: space-around;
+  height: 50%;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.tableViewCell__backButtonContainer {
+  width: 25%;
+  height: 70%;
+  background-color: $green;
+  border-radius: 4px;
+}
+
+.tableViewCell__backButtonContainer:hover {
+  filter: brightness(120%);
 }
 
 .tableViewCell__dot {
@@ -83,7 +82,8 @@
 }
 
 .tableViewCell__flipCard:hover {
-    @include boxshadow;
+  cursor: pointer;
+  @include boxshadow;
 }
 
 .tableViewCell__flipCardInner {
@@ -96,11 +96,9 @@
 
 .tableViewCell__flipCardSelected .tableViewCell__flipCardInner {
   transform: rotateX(180deg);
-  
 }
 
-.tableViewCell__flipCardFront,
-.tableViewCell__flipCardBack {
+.tableViewCell__flipCardFront {
   display: flex;  
   position: absolute;
   width: 100%;
@@ -110,6 +108,13 @@
 }
 
 .tableViewCell__flipCardBack {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
   background-color: $black;
   color: white;
   transform: rotateX(180deg);

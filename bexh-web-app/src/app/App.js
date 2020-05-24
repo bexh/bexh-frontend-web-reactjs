@@ -19,7 +19,7 @@ function App() {
         <Route path="/" component={NavBar} />
         <Route exact path="/" component={Landing} />
         <Route path="/event" component={Event} />
-        <Route path="/sports" component={Sports} />
+        <Route path="/sports/:sport" component={Sports} />
         <Route path="/portfolio" component={Portfolio} />
       </div>
     </Router>

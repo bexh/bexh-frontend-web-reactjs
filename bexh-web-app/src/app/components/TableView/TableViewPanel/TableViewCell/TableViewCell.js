@@ -1,6 +1,7 @@
 import React from 'react';
 import './style.scss';
 import PropTypes from 'prop-types';
+import { Button } from '../../../index';
 
 export default class TableViewCell extends React.Component {
     constructor(props) {
@@ -11,11 +12,11 @@ export default class TableViewCell extends React.Component {
         this.handleCellSelect = this.handleCellSelect.bind(this);
     }
 
-    handleCellSelect(value) {
+    handleCellSelect(e) {
         this.setState((prevState) => ({
             selected: !prevState.selected,
         }));
-        this.props.onClick(value);
+        this.props.onClick(e);
     }
 
     render() {
@@ -23,7 +24,7 @@ export default class TableViewCell extends React.Component {
             <div className="tableViewCell__info" key={key}>{item}</div>
         );
         return (
-            <div className={this.state.selected ? "tableViewCell__flipCard tableViewCell__flipCardSelected" : " tableViewCell__flipCard"} onClick={this.handleCellSelect}>
+            <TableViewCellOnClickHelper className={this.state.selected ? "tableViewCell__flipCard tableViewCell__flipCardSelected" : " tableViewCell__flipCard"} onClick={this.handleCellSelect} value={this.props.value}>
                 <div className="tableViewCell__flipCardInner">
                     <div className="tableViewCell__flipCardFront">
                         <div className="tableViewCell__notification">
@@ -38,19 +39,21 @@ export default class TableViewCell extends React.Component {
                         </div>
                     </div>
                     <div className="tableViewCell__flipCardBack">
-                        <div className="tableViewCell__left">
+                        <div className="tableViewCell__top">
                             {this.props.backDetails.map((item, key) =>
                                 <div key={key}>{item}</div>
                             )}
                         </div>
-                        <div className="tableViewCell__backRight">
-                        {this.props.backButtons.map((item, key) =>
-                                <div key={key}>{item}</div>
+                        <div className="tableViewCell__bottom">
+                        {this.props.backButtons.map((button, key) =>
+                                <div className="tableViewCell__backButtonContainer" key={key}>
+                                    {button}
+                                </div>
                             )}
                         </div>
                     </div>
                 </div>
-            </div>
+            </TableViewCellOnClickHelper>
         );
     }
 }
@@ -61,7 +64,7 @@ TableViewCell.propTypes = {
     onClick: PropTypes.func.isRequired,
     info: PropTypes.arrayOf(PropTypes.string),
     notification: PropTypes.bool,
-    backButtons: PropTypes.string,
+    backButtons: PropTypes.arrayOf(PropTypes.shape({type: Button})),
     backDetails: PropTypes.arrayOf(PropTypes.string),
     tag: PropTypes.string,
 }
@@ -81,12 +84,12 @@ class TableViewCellOnClickHelper extends React.Component {
     }
 
     handleClick() {
-        this.props.onClick(this.props.value);
+        this.props.onClick({target: {value: this.props.value}});
     }
 
     render() {
         return (
-            <div className="tableViewCellOnClickHelper" onClick={this.handleClick}>
+            <div className={this.props.className} onClick={this.handleClick}>
                 {this.props.children}
             </div>
         );

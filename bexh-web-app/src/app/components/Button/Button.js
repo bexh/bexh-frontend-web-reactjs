@@ -13,7 +13,7 @@ export default class Button extends React.Component {
             >
                 <button 
                     onClick={this.props.onClick}
-                    value={this.props.title}
+                    value={this.props.value}
                 >
                     {this.props.title}
                 </button>
@@ -23,6 +23,7 @@ export default class Button extends React.Component {
 }
 
 Button.propTypes = {
+    title: PropTypes.string.isRequired,
     selected: PropTypes.bool,
     className: PropTypes.string,
     style: PropTypes.shape({}),

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { fetchBets, fetchMoreBets } from './betActions';
+import { fetchBets, fetchMoreBets, updateBetViewed } from './betActions';
 import {
     TableView,
     TableViewCell,
@@ -26,6 +26,7 @@ class Bets extends React.Component {
         this.determineBackButtons = this.determineBackButtons.bind(this);
         this.renderBets = this.renderBets.bind(this);
         this.onReachBottom = this.onReachBottom.bind(this);
+        this.handleSelectBetAction = this.handleSelectBetAction.bind(this);
     }
 
     componentDidMount() {
@@ -42,9 +43,20 @@ class Bets extends React.Component {
         });
     }
 
-    handleSelectBet(value) {
-        // TODO: modify notification on click. redux
+    handleSelectBet(e) {
+        const id = e.target.value;
+        const bet = this.props.bets.filter(bet => bet.id === id);
+        const viewed = bet.viewed ? true : false;
+        if (!viewed) {
+            const params = {id: id};
+            this.props.updateBetViewed(params);
+        }
+    }
 
+    handleSelectBetAction(e) {
+        const action = e.target.value.title;
+        const betId = e.target.value.id;
+        // TODO: redux for handle select bet action
     }
 
     onReachBottom(params) {
@@ -91,22 +103,34 @@ class Bets extends React.Component {
         return backDetails;
     }
 
-    determineBackButtons(status, betType) {
+    determineBackButtons(status, betType, id) {
         // if social and pending them, needs cancel
         // if social and pending you, needs accept decline counter
         // if exchange and pending, needs cancel
+        let backButtonOptions = [];
         if (betType === "Social") {
             if (status === "PendingYou") {
-                return (["Accept", "Decline", "Counter"]);
+                backButtonOptions = ["Accept", "Decline", "Counter"];
             }
             else if (status === "PendingThem") {
-                return (["Cancel"]);
+                backButtonOptions = ["Cancel"];
             }
         }
         else if (betType === "Exchange" && status === "Pending") {
-            return (["Cancel"]);
+            backButtonOptions = ["Cancel"];
         }
-        return [];
+        else {
+            backButtonOptions = [];
+        }
+        const backButtons = backButtonOptions.map((buttonTitle, key) =>
+            <Button
+                title={buttonTitle}
+                onClick={this.handleSelectBetAction}
+                value={{title: buttonTitle, id: id}}
+                key={key}
+            />
+        )
+        return backButtons;
     }
 
     renderBets() {
@@ -120,14 +144,14 @@ class Bets extends React.Component {
                 const teamAgainstPrefix = bet.teamFor === bet.homeTeam ? "vs " : "at ";
                 const tag = this.determineTag(bet.amount, bet.amountToWin, bet.win, bet.status);
                 const backDetails = this.determineBackDetails(bet.status, bet.orderType, bet.betType, bet.with, bet.odds);
-                const backButtons = this.determineBackButtons(bet.status, bet.betType);
+                const backButtons = this.determineBackButtons(bet.status, bet.betType, bet.id);
                 console.log("BACK BUTTONS", backButtons);
                 return (
                     <TableViewCell
                         title={bet.teamFor}
                         info={[teamAgainstPrefix + bet.teamAgainst, bet.date]}
                         tag={tag}
-                        notification={bet.viewed}
+                        notification={!bet.viewed}
                         key={bet.id}
                         value={bet.id}
                         onClick={this.handleSelectBet}
@@ -150,18 +174,21 @@ class Bets extends React.Component {
                     <Button
                         className="button--tabButton"
                         title="Active"
+                        value="Active"
                         selected={this.state.selectedTab === "Active"}
                         onClick={this.handleBetStatusChange}
                     />
                     <Button
                         className="button--tabButton"
                         title="Pending"
+                        value="Pending"
                         selected={this.state.selectedTab === "Pending"}
                         onClick={this.handleBetStatusChange}
                     />
                     <Button
                         className="button--tabButton"
                         title="Complete"
+                        value="Complete"
                         selected={this.state.selectedTab === "Complete"}
                         onClick={this.handleBetStatusChange}
                     />
@@ -187,4 +214,4 @@ const mapStateToProps = state => ({
     bets: state.bets.items,
 })
 
-export default connect(mapStateToProps, { fetchBets, fetchMoreBets })(Bets);
+export default connect(mapStateToProps, { fetchBets, fetchMoreBets, updateBetViewed })(Bets);
