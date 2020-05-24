@@ -6,7 +6,7 @@ export const fetchBets = (params) => dispatch => {
         headers: {
             'Content-Type': 'application/json',
             'Accept': 'application/json',
-            "X-API-Key": "61eb77c0",
+            "X-API-Key": "63cd1670",
         },
     })
         .then(res => res.json())
@@ -23,7 +23,7 @@ export const fetchMoreBets = (params) => dispatch => {
         headers: {
             'Content-Type': 'application/json',
             'Accept': 'application/json',
-            "X-API-Key": "61eb77c0",
+            "X-API-Key": "63cd1670",
         },
     })
         .then(res => res.json())
@@ -40,7 +40,7 @@ export const updateBetViewed = (params) => dispatch => {
         headers: {
             'Content-Type': 'application/json',
             'Accept': 'application/json',
-            "X-API-Key": "61eb77c0",
+            "X-API-Key": "63cd1670",
         },
         body: JSON.stringify({
             id: params.id,
