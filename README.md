@@ -2,10 +2,10 @@
 
 To run with docker (local):
 
-docker-compose up -d -b
-docker images
-pwd
-docker run -it -p 3000:3000 -v <pwd_output>/bexh-web-app/src:/bexh-web-app/src <image_id>
+docker-compose up -d -build  
+docker images  
+pwd  
+docker run -it -p 3000:3000 -v <pwd_output>/bexh-web-app/src:/bexh-web-app/src <image_id>  
 
 
 To run with docker (prod):
