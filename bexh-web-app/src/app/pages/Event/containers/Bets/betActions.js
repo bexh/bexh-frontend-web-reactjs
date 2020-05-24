@@ -1,7 +1,6 @@
 import { FETCH_BETS, FETCH_MORE_BETS, BET_VIEWED } from '../../../../../redux/types';
 
 export const fetchBets = (params) => dispatch => {
-    console.log("FETCH BETS", params);
     fetch(`https://my.api.mockaroo.com/bets?page=${params.page}&market=${params.betMarket}&status=${params.status}`, {
         method: 'GET',
         headers: {
@@ -19,8 +18,6 @@ export const fetchBets = (params) => dispatch => {
 };
 
 export const fetchMoreBets = (params) => dispatch => {
-    console.log("FETCH MORE BETS", params);
-    console.log("FETCH URL", `https://my.api.mockaroo.com/bets?page=${params.page}&market=${params.betMarket}&status=${params.status}`);
     fetch(`https://my.api.mockaroo.com/bets?page=${params.page}&market=${params.betMarket}&status=${params.status}`, {
         method: 'GET',
         headers: {
@@ -38,7 +35,6 @@ export const fetchMoreBets = (params) => dispatch => {
 };
 
 export const updateBetViewed = (params) => dispatch => {
-    console.log("UPDATE BET VIEWED", params);
     fetch('https://my.api.mockaroo.com/bets', {
         method: 'PUT',
         headers: {

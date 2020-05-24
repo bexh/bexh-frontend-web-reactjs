@@ -58,7 +58,6 @@ export default class TableViewCell extends React.Component {
     }
 }
 
-// TODO: change this when buttons are actually buttons
 TableViewCell.propTypes = {
     title: PropTypes.string.isRequired,
     onClick: PropTypes.func.isRequired,

@@ -19,8 +19,6 @@ export default class TableViewPanel extends React.Component {
 
     onScroll(e) {
         if (this.hasReachedBottom(e)) {
-            console.log("at bottom");
-            // trigger prop redux action to fetch next "page"
             this.props.onReachBottom({title: this.props.title});
         }
     }

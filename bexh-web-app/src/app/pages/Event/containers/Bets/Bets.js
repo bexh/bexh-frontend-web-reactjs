@@ -54,13 +54,12 @@ class Bets extends React.Component {
     }
 
     handleSelectBetAction(e) {
-        const action = e.target.value.title;
-        const betId = e.target.value.id;
+        // const action = e.target.value.title;
+        // const betId = e.target.value.id;
         // TODO: redux for handle select bet action
     }
 
     onReachBottom(params) {
-        console.log("PARAM TITLE:", params.title);
         switch (params.title) {
             case "Exchange":
                 this.setState((prevState) => ({
@@ -81,7 +80,6 @@ class Bets extends React.Component {
     }
 
     determineTag(amount, amountToWin, win, status) {
-        console.log("determining tag", amount, amountToWin, win, status);
         if (status === "Complete") {
             return (win ? `+${amountToWin}` : `-${amount}`);
         }
@@ -134,18 +132,15 @@ class Bets extends React.Component {
     }
 
     renderBets() {
-        console.log("render bets", this.props);
         const [exchangeBets, socialBets] = ["Exchange", "Social"].map((betType, i) =>
             this.props.bets.filter(bet => bet.betType === betType)
         )
         const [exchangeBetCells, socialBetCells] = [exchangeBets, socialBets].map((betGroup, i) =>
             betGroup.map((bet, key) => {
-                console.log("BET", bet);
                 const teamAgainstPrefix = bet.teamFor === bet.homeTeam ? "vs " : "at ";
                 const tag = this.determineTag(bet.amount, bet.amountToWin, bet.win, bet.status);
                 const backDetails = this.determineBackDetails(bet.status, bet.orderType, bet.betType, bet.with, bet.odds);
                 const backButtons = this.determineBackButtons(bet.status, bet.betType, bet.id);
-                console.log("BACK BUTTONS", backButtons);
                 return (
                     <TableViewCell
                         title={bet.teamFor}
