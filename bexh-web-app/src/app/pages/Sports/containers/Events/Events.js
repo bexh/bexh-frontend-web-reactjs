@@ -15,58 +15,6 @@ import './style.scss';
 class Events extends React.Component {
     constructor(props) {
         super(props);
-        // this.state = {
-        //     "events": {
-        //         "Monday, May 18th": [
-        //             {
-        //                 sport: "Basketball",
-        //                 homeTeam: "Chicago Bulls",
-        //                 awayTeam: "Detroit Pistons",
-        //                 date: "Monday, May 18th, 12:00 PM",
-        //                 odds: 300,
-        //                 eventId: 1,
-        //             },
-        //             {
-        //                 sport: "Basketball",
-        //                 homeTeam: "Chicago Bulls",
-        //                 awayTeam: "Phoenix Suns",
-        //                 date: "Monday, May 18th, 2:000 PM",
-        //                 odds: -100,
-        //                 eventId: 2,
-        //             }
-        //         ],
-        //         "Tuesday, May 19th": [
-        //             {
-        //                 sport: "Basketball",
-        //                 homeTeam: "Chicago Bulls",
-        //                 awayTeam: "Cleveland Cavaliers",
-        //                 date: "Tuesday, May 19th, 2:00 PM",
-        //                 odds: -50,
-        //                 eventId: 3,
-        //             }
-        //         ],
-        //         "Wednesday, May 20th": [
-        //             {
-        //                 sport: "Basketball",
-        //                 homeTeam: "Chicago Bulls",
-        //                 awayTeam: "Washington Capitals",
-        //                 date: "Wednesday, May 20th, 4:00 PM",
-        //                 odds: 100,
-        //                 eventId: 4,
-        //             }
-        //         ],
-        //         "Thursday, May 21st": [
-        //             {
-        //                 sport: "Basketball",
-        //                 homeTeam: "Chicago Bulls",
-        //                 awayTeam: "Detroit Pistons",
-        //                 date: "Thursday, May 21st, 6:00 PM",
-        //                 odds: 100,
-        //                 eventId: 5,
-        //             }
-        //         ]
-        //     }
-        // }
         this.renderEventPanels = this.renderEventPanels.bind(this);
         this.navigateToEvent = this.navigateToEvent.bind(this);
     }
