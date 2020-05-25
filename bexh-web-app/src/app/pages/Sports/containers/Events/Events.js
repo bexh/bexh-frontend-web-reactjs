@@ -71,6 +71,7 @@ class Events extends React.Component {
 Events.propTypes = {
     sport: PropTypes.string.isRequired,
     fetchEvents: PropTypes.func.isRequired,
+    events: PropTypes.array.isRequired,
 }
 
 const mapStateToProps = state => ({
