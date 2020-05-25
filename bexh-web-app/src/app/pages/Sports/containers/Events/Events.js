@@ -58,7 +58,6 @@ class Events extends React.Component {
     }
 
     render() {
-        console.log("EVENTS", this.props.events);
         const eventPanels = this.renderEventPanels(this.props.events);
         const title = Capitalize(this.props.sport);
         return (
