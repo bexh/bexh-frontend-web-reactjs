@@ -29,23 +29,66 @@ export default class EventGraph extends React.Component {
             }
         }
         this.pseduoScalePoints = this.pseduoScalePoints.bind(this);
+        this.coordsToPolyPoints = this.coordsToPolyPoints.bind(this);
+        this.handleResize = this.handleResize.bind(this);
+        this.handleHover = this.handleHover.bind(this);
+        this.removeHover = this.removeHover.bind(this);
     }
 
-    pseduoScalePoints(points) {
-        let maxX = Math.max(points["x"]);
-        let maxY = Math.max(points["y"]);
-        let minX = Math.min(points["x"]);
-        let minY = Math.min(points["y"]);
+    componentDidMount() {
+        window.addEventListener("resize", this.handleResize);
+        this.setState({
+            divHeight: this.div.offsetHeight,
+            divWidth: this.div.offsetWidth,
+        });
+      }
 
-        console.log("div", this.div);
+    componentWillUnmount() {
+        window.removeEventListener("resize", null);
+    }
 
-        let parentX = (typeof this.div?.offsetWidth !== "undefined") ? this.div.offsetWidth : 10;
-        let parentY = (typeof this.div?.offsetHeight !== "undefined") ? this.div.offsetHeight : 10;
+    handleHover(e) {
+        let relativeX = e.clientX - this.div.offsetLeft;
+        const [scaledX, scaledY] = this.pseduoScalePoints(this.state.points, this.state.divWidth, this.state.divWidth);
+        let minXDistIndex = 0;
+        let minXDist = 10000;
+        for (var i = 0; i < scaledX.length; i++) {
+            const xDist = Math.abs(relativeX - scaledX[i]);
+            if (xDist < minXDist) {
+                minXDist = xDist;
+                minXDistIndex = i;
+            }
+        }
+        let hoverPointScaled = [scaledX[minXDistIndex], scaledY[minXDistIndex]];
+        let hoverPoint = [this.state.points["x"][minXDistIndex], this.state.points["y"][minXDistIndex]];
+        this.setState({
+            hoverPointScaled: hoverPointScaled,
+            hoverPoint: hoverPoint,
+        });
+    }
+
+    removeHover(e) {
+        this.setState({
+            hoverPointScaled: null,
+            hoverPoint: null,
+        });
+    }
+
+    handleResize(WindowSize, event) {
+        this.setState({
+            divHeight: this.div.offsetHeight,
+            divWidth: this.div.offsetWidth,
+        });
+    }
+
+    pseduoScalePoints(points, parentX, parentY) {
+        let maxX = Math.max(...points["x"]);
+        let maxY = Math.max(...points["y"]);
+        let minX = Math.min(...points["x"]);
+        let minY = Math.min(...points["y"]);
 
         let scaleX = parentX / (maxX - minX);
         let scaledX = points["x"].map((val, key) => {
-            console.log("scale X", scaleX);
-            console.log("val", val);
             return (val * scaleX);
         });
 
@@ -54,24 +97,60 @@ export default class EventGraph extends React.Component {
             return (val* scaleY);
         });
 
-        console.log("scaled x", scaledX);
-        console.log("scaled y", scaledY);
+        return [scaledX, scaledY];
     }
-    
-    // this.setState({
-    //     viewBoxHeight: this.div.offsetHeight,
-    //     viewBoxWidth: this.div.offsetWidth
-    //   });
+
+    coordsToPolyPoints(coords) {
+        let [xCoords, yCoords] = coords;
+        let scaledPoints = ""
+        for (var i = 0; i < xCoords.length; i++) {
+            scaledPoints += `${xCoords[i]} ${yCoords[i]}`
+            if (i !== xCoords.length - 1) {
+                scaledPoints += ", "
+            }
+        }
+
+        return scaledPoints;
+    }
 
     render() {
+        console.log("Hover point scaled", this.state.hoverPointScaled);
+        let hoverLinePoints = (
+            (this.state.hoverPointScaled !== undefined && this.state.hoverPointScaled !== null)
+            ? `${this.state.hoverPointScaled[0]} 0, ${this.state.hoverPointScaled[0]} ${this.state.divHeight}`
+            : null
+        );
+        
         return (
-            <div ref={div => (this.div = div)} className="eventGraph__container">
+            <div ref={div => (this.div = div)} onMouseMove={this.handleHover} onMouseLeave={this.removeHover} className="eventGraph__container">
                 <svg className="eventGraph__svg">
-                    <polyline
-                        fill="none"
-                        stroke="#0074d9"
-                        points={this.pseduoScalePoints(this.state.points)}
-                    />
+                    <g>
+                    {   this.state.divHeight &&
+                        <polyline
+                            fill="none"
+                            stroke="#1E7958"
+                            strokeWidth="3"
+                            points={
+                                this.coordsToPolyPoints(
+                                    this.pseduoScalePoints(
+                                        this.state.points,
+                                        this.state.divWidth,
+                                        this.state.divHeight
+                                    )
+                                )
+                            }
+                        />
+                    }
+                    {
+                        hoverLinePoints &&
+                        <polyline
+                            fill="none"
+                            stroke="#1E7958"
+                            strokeWidth="2"
+                            points={hoverLinePoints}
+                        />
+                    }
+                    </g>
                 </svg>
             </div>
         );
