@@ -1,6 +1,7 @@
 import React from 'react';
 import './style.scss';
 import { Graph } from '../../../../components/index';
+import Odometer from 'react-odometerjs';
 
 export default class EventGraph extends React.Component {
     constructor(props) {
@@ -19,13 +20,30 @@ export default class EventGraph extends React.Component {
             ],
             homeTeam: "Cleveland Cavaliers",
             awayTeam: "Detroit Pistons",
-            marketOdds: 300,
-            date: "Sunday, April 22, 12:00 PM"
+            date: "Sunday, April 22, 12:00 PM",
+            hoverPoint: null,
         };
+        this.onMouseOver = this.onMouseOver.bind(this);
+        this.onMouseLeave = this.onMouseLeave.bind(this);
+    }
+
+    onMouseOver(point) {
+        console.log("MOUSE OVER", point);
+        this.setState({
+            hoverPoint: point,
+        });
+    }
+
+    onMouseLeave(e) {
+        this.setState({
+            hoverPoint: null,
+        })
     }
 
     render() {
-        const oddsChange = this.state.marketOdds - this.state.points[0]['y'];
+        const marketPoint = this.state.points[this.state.points.length - 1];
+        const displayPointInfo = this.state.hoverPoint !== null ? this.state.hoverPoint : marketPoint;
+        const oddsChange = displayPointInfo['y'] - this.state.points[0]['y'];
         const pctOddsChange = (oddsChange / this.state.points[0]['y']) * 100;
 
         return (
@@ -35,7 +53,8 @@ export default class EventGraph extends React.Component {
                         {`${this.state.homeTeam} vs ${this.state.awayTeam}`}
                     </div>
                     <div className="eventGraph__marketOdds">
-                        {this.state.marketOdds > 0 ? `+${this.state.marketOdds}` : this.state.marketOdds}
+                        {displayPointInfo['y'] > 0 ? "+" : ""}
+                        <Odometer duration={500} value={displayPointInfo['y']} />
                     </div>
                     <div className="eventGraph__marketOddsChange">
                         {oddsChange >= 0 ? `+${oddsChange} (+${pctOddsChange}%)` : `${oddsChange} (${pctOddsChange}%)`}
@@ -45,7 +64,7 @@ export default class EventGraph extends React.Component {
                     </div>
                 </div>
                 <div className="eventGraph__graphContainer">
-                    <Graph points={this.state.points} />
+                    <Graph points={this.state.points} onMouseOver={this.onMouseOver} onMouseLeave={this.onMouseLeave}/>
                 </div>
                 <hr />
             </div>

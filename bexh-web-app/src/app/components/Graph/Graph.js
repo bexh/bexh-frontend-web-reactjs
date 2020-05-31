@@ -47,6 +47,7 @@ export default class Graph extends React.Component {
             hoverPointScaled: hoverPointScaled,
             hoverPoint: hoverPoint,
         });
+        this.props.onMouseOver(this.props.points[minXDistIndex]);
     }
 
     removeHover(e) {
@@ -54,6 +55,7 @@ export default class Graph extends React.Component {
             hoverPointScaled: null,
             hoverPoint: null,
         });
+        this.props.onMouseLeave(e);
     }
 
     handleResize(WindowSize, event) {
@@ -122,9 +124,9 @@ export default class Graph extends React.Component {
         const reducedCoords = this.reducePoints(this.props.points);
         const nonScaleMaxY = Math.max(...reducedCoords[1]);
         const nonScaleMinY = Math.min(...reducedCoords[0]);
-        const yAxisPoints = [nonScaleMinY]
+        const yAxisPoints = [nonScaleMaxY]
         for (var i = 1; i < 10; i++) {
-            yAxisPoints.push(((nonScaleMaxY - nonScaleMinY) / 10) + yAxisPoints[yAxisPoints.length - 1]);
+            yAxisPoints.push(yAxisPoints[yAxisPoints.length - 1] - ((nonScaleMaxY - nonScaleMinY) / 10));
         }
 
         return (
