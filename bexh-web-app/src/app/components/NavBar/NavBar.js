@@ -10,7 +10,7 @@ export default class NavBar extends React.Component {
         return (
             <nav role="navigation">
                 <div id="NavLeft">
-                    <div id="Logo"><Link to="/event">BEXH</Link></div>
+                    <div id="Logo"><Link to="/event/123">BEXH</Link></div>
                     <input id="Search" placeholder=" Search" />
                 </div>
                 <div id="NavRight">

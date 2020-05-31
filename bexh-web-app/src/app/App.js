@@ -18,9 +18,9 @@ function App() {
       <div className="App">
         <Route path="/" component={NavBar} />
         <Route exact path="/" component={Landing} />
-        <Route path="/event" component={Event} />
-        <Route path="/sports/:sport" component={Sports} />
-        <Route path="/portfolio" component={Portfolio} />
+        <Route exact path="/event/:id" component={Event} />
+        <Route exact path="/sports/:sport" render={props => <Sports key={props.match.params.sport} />} />
+        <Route exact path="/portfolio" component={Portfolio} />
       </div>
     </Router>
   );
