@@ -5,34 +5,24 @@ export default class EventGraph extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            "points": {
-                x: [
-                    0,
-                    20,
-                    40,
-                    60,
-                    80,
-                    100,
-                    120,
-                    140
-                ],
-                y: [
-                    0,
-                    60,
-                    80,
-                    20,
-                    80,
-                    60,
-                    100,
-                    90
-                ]
-            }
+            "points": [
+                {x:0, y:0},
+                {x:20, y:60},
+                {x:40, y:80},
+                {x:60, y:20},
+                {x:80, y:80},
+                {x:100, y:60},
+                {x:120, y:100},
+                {x:140, y:90}
+            ],
         }
+
         this.pseduoScalePoints = this.pseduoScalePoints.bind(this);
         this.coordsToPolyPoints = this.coordsToPolyPoints.bind(this);
         this.handleResize = this.handleResize.bind(this);
         this.handleHover = this.handleHover.bind(this);
         this.removeHover = this.removeHover.bind(this);
+        this.reducePoints = this.reducePoints.bind(this);
     }
 
     componentDidMount() {
@@ -60,7 +50,7 @@ export default class EventGraph extends React.Component {
             }
         }
         let hoverPointScaled = [scaledX[minXDistIndex], scaledY[minXDistIndex]];
-        let hoverPoint = [this.state.points["x"][minXDistIndex], this.state.points["y"][minXDistIndex]];
+        let hoverPoint = [this.state.points[minXDistIndex]["x"], this.state.points[minXDistIndex]["y"]];
         this.setState({
             hoverPointScaled: hoverPointScaled,
             hoverPoint: hoverPoint,
@@ -80,20 +70,31 @@ export default class EventGraph extends React.Component {
             divWidth: this.div.offsetWidth,
         });
     }
+    
+    reducePoints(points) {
+        // turn [{x:1, y:2}, {x:3, y:4}] to [[1, 3], [2, 4]]
+        const [xPoints, yPoints] = points.reduce((acc, val) => {
+            acc[0].push(val.x);
+            acc[1].push(val.y);
+            return acc;
+        }, [[],[]]);
+        return [xPoints, yPoints];
+    }
 
     pseduoScalePoints(points, parentX, parentY) {
-        let maxX = Math.max(...points["x"]);
-        let maxY = Math.max(...points["y"]);
-        let minX = Math.min(...points["x"]);
-        let minY = Math.min(...points["y"]);
+        let [xPoints, yPoints] = this.reducePoints(points);
+        let maxX = Math.max(...xPoints);
+        let maxY = Math.max(...yPoints);
+        let minX = Math.min(...xPoints);
+        let minY = Math.min(...yPoints);
 
         let scaleX = parentX / (maxX - minX);
-        let scaledX = points["x"].map((val, key) => {
+        let scaledX = xPoints.map((val, key) => {
             return (val * scaleX);
         });
 
         let scaleY = parentY / (maxY - minY);
-        let scaledY = points["y"].map((val, key) => {
+        let scaledY = yPoints.map((val, key) => {
             return (val* scaleY);
         });
 
@@ -114,7 +115,6 @@ export default class EventGraph extends React.Component {
     }
 
     render() {
-        console.log("Hover point scaled", this.state.hoverPointScaled);
         let hoverLinePoints = (
             (this.state.hoverPointScaled !== undefined && this.state.hoverPointScaled !== null)
             ? `${this.state.hoverPointScaled[0]} 0, ${this.state.hoverPointScaled[0]} ${this.state.divHeight}`
