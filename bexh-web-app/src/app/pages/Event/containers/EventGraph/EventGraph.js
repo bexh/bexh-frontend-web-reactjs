@@ -47,6 +47,7 @@ export default class EventGraph extends React.Component {
                 <div className="eventGraph__graphContainer">
                     <Graph points={this.state.points} />
                 </div>
+                <hr />
             </div>
         );
     }

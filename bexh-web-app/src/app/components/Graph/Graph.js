@@ -119,30 +119,44 @@ export default class Graph extends React.Component {
         const scaledCoords = this.state.divHeight ? this.pseudoScalePoints(this.props.points, this.state.divWidth, this.state.divHeight) : null;
         const scaledPoints = scaledCoords ? this.coordsToPolyPoints(scaledCoords) : null;
         const maxY = scaledCoords ? Math.max(...scaledCoords[1]) : 0;
+        const reducedCoords = this.reducePoints(this.props.points);
+        const nonScaleMaxY = Math.max(...reducedCoords[1]);
+        const nonScaleMinY = Math.min(...reducedCoords[0]);
+        const yAxisPoints = [nonScaleMinY]
+        for (var i = 1; i < 10; i++) {
+            yAxisPoints.push(((nonScaleMaxY - nonScaleMinY) / 10) + yAxisPoints[yAxisPoints.length - 1]);
+        }
 
         return (
-            <div ref={div => (this.div = div)} onMouseMove={this.handleHover} onMouseLeave={this.removeHover} className="graph__container">
-                <svg className="graph__svg">
-                    <g transform={`translate(0, ${maxY}) scale(1, -1)`}>
-                    {   this.state.divHeight &&
-                        <polyline
-                            fill="none"
-                            stroke="#1E7958"
-                            strokeWidth="3"
-                            points={scaledPoints}
-                        />
-                    }
-                    {
-                        hoverLinePoints &&
-                        <polyline
-                            fill="none"
-                            stroke="rgba(201, 201, 201, 0.4)"
-                            strokeWidth="1"
-                            points={hoverLinePoints}
-                        />
-                    }
-                    </g>
-                </svg>
+            <div className="graph__container">
+                <div className="graph__yAxis">
+                    {yAxisPoints.map((val, key) => (
+                        <div key={key} className="graph__yAxis__val">{val}</div>
+                    ))}
+                </div>
+                <div ref={div => (this.div = div)} onMouseMove={this.handleHover} onMouseLeave={this.removeHover} className="graph__graphContainer">
+                    <svg className="graph__svg">
+                        <g transform={`translate(0, ${maxY}) scale(1, -1)`}>
+                        {   this.state.divHeight &&
+                            <polyline
+                                fill="none"
+                                stroke="#1E7958"
+                                strokeWidth="3"
+                                points={scaledPoints}
+                            />
+                        }
+                        {
+                            hoverLinePoints &&
+                            <polyline
+                                fill="none"
+                                stroke="rgba(201, 201, 201, 0.4)"
+                                strokeWidth="1"
+                                points={hoverLinePoints}
+                            />
+                        }
+                        </g>
+                    </svg>
+                </div>
             </div>
         );
     }
