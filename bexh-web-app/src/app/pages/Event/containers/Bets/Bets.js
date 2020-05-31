@@ -13,7 +13,7 @@ import './style.scss';
 
 class Bets extends React.Component {
     constructor(props) {
-        super(props)
+        super(props);
         this.state = {
             "selectedTab": "Active",
             "exchangePage": 1,
@@ -30,12 +30,22 @@ class Bets extends React.Component {
     }
 
     componentDidMount() {
-        this.props.fetchBets({betMarket: "all", page: 1, status: "Active"});
+        this.props.fetchBets({
+            betMarket: "all",
+            page: 1,
+            status: "Active",
+            eventId: this.props.id,
+        });
     }
 
     handleBetStatusChange(e) {
         const status = e.target.value;
-        this.props.fetchBets({betMarket: "all", page: 1, status: status})
+        this.props.fetchBets({
+            betMarket: "all",
+            page: 1,
+            status: status,
+            eventId: this.props.id,
+        });
         this.setState({
             selectedTab: status,
             exchangePage: 1,
@@ -188,10 +198,10 @@ class Bets extends React.Component {
                         onClick={this.handleBetStatusChange}
                     />
                 </ButtonBar>
-                <TableViewPanel title="Exchange" onReachBottom={this.onReachBottom}>
+                <TableViewPanel scrollable title="Exchange" onReachBottom={this.onReachBottom}>
                     {exchangeBetCells}
                 </TableViewPanel>
-                <TableViewPanel title="Social" onReachBottom={this.onReachBottom}>
+                <TableViewPanel scrollable title="Social" onReachBottom={this.onReachBottom}>
                     {socialBetCells}
                 </TableViewPanel>
             </TableView>
@@ -202,11 +212,12 @@ class Bets extends React.Component {
 Bets.propTypes = {
     fetchBets: PropTypes.func.isRequired,
     fetchMoreBets: PropTypes.func.isRequired,
+    updateBetViewed: PropTypes.func.isRequired,
     bets: PropTypes.array.isRequired,
 }
 
 const mapStateToProps = state => ({
     bets: state.bets.items,
-})
+});
 
 export default connect(mapStateToProps, { fetchBets, fetchMoreBets, updateBetViewed })(Bets);
