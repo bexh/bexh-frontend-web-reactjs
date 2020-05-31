@@ -1,8 +1,0 @@
-@import '../../../sass/main.scss';
-
-.test {
-    color: $white;
-    margin: 50px;
-    @include boxshadow;
-    @include modify-text(12px);
-}

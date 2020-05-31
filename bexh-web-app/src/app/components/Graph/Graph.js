@@ -1,20 +1,12 @@
 import React from 'react';
 import './style.scss';
 
-export default class EventGraph extends React.Component {
+export default class Graph extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            "points": [
-                {x:20, y:20},
-                {x:20, y:60},
-                {x:40, y:80},
-                {x:60, y:20},
-                {x:80, y:80},
-                {x:100, y:60},
-                {x:120, y:100},
-                {x:140, y:90}
-            ],
+            divHeight: null,
+            divWidth: null,
         }
 
         this.pseudoScalePoints = this.pseudoScalePoints.bind(this);
@@ -39,7 +31,7 @@ export default class EventGraph extends React.Component {
 
     handleHover(e) {
         let relativeX = e.clientX - this.div.offsetLeft;
-        const [scaledX, scaledY] = this.pseudoScalePoints(this.state.points, this.state.divWidth, this.state.divWidth);
+        const [scaledX, scaledY] = this.pseudoScalePoints(this.props.points, this.state.divWidth, this.state.divWidth);
         let minXDistIndex = 0;
         let minXDist = 10000;
         for (var i = 0; i < scaledX.length; i++) {
@@ -50,7 +42,7 @@ export default class EventGraph extends React.Component {
             }
         }
         let hoverPointScaled = [scaledX[minXDistIndex], scaledY[minXDistIndex]];
-        let hoverPoint = [this.state.points[minXDistIndex]["x"], this.state.points[minXDistIndex]["y"]];
+        let hoverPoint = [this.props.points[minXDistIndex]["x"], this.props.points[minXDistIndex]["y"]];
         this.setState({
             hoverPointScaled: hoverPointScaled,
             hoverPoint: hoverPoint,
@@ -82,6 +74,9 @@ export default class EventGraph extends React.Component {
     }
 
     pseudoScalePoints(points, parentX, parentY) {
+        // Scale points such that maxX is div width and minX is 0. Same for Y.
+        // We do this because svg multiline points correspond to pixel values.
+        
         let [xPoints, yPoints] = this.reducePoints(points);
         let maxX = Math.max(...xPoints);
         let maxY = Math.max(...yPoints);
@@ -95,7 +90,7 @@ export default class EventGraph extends React.Component {
 
         let scaleY = parentY / (maxY - minY);
         let scaledY = yPoints.map((val, key) => {
-            return (val* scaleY) - (minY * scaleY);
+            return (val * scaleY) - (minY * scaleY);
         });
 
         return [scaledX, scaledY];
@@ -121,13 +116,13 @@ export default class EventGraph extends React.Component {
             : null
         );
 
-        const scaledCoords = this.state.divHeight ? this.pseudoScalePoints(this.state.points, this.state.divWidth, this.state.divHeight) : null;
+        const scaledCoords = this.state.divHeight ? this.pseudoScalePoints(this.props.points, this.state.divWidth, this.state.divHeight) : null;
         const scaledPoints = scaledCoords ? this.coordsToPolyPoints(scaledCoords) : null;
         const maxY = scaledCoords ? Math.max(...scaledCoords[1]) : 0;
 
         return (
-            <div ref={div => (this.div = div)} onMouseMove={this.handleHover} onMouseLeave={this.removeHover} className="eventGraph__container">
-                <svg className="eventGraph__svg">
+            <div ref={div => (this.div = div)} onMouseMove={this.handleHover} onMouseLeave={this.removeHover} className="graph__container">
+                <svg className="graph__svg">
                     <g transform={`translate(0, ${maxY}) scale(1, -1)`}>
                     {   this.state.divHeight &&
                         <polyline
@@ -141,8 +136,8 @@ export default class EventGraph extends React.Component {
                         hoverLinePoints &&
                         <polyline
                             fill="none"
-                            stroke="#1E7958"
-                            strokeWidth="2"
+                            stroke="rgba(201, 201, 201, 0.4)"
+                            strokeWidth="1"
                             points={hoverLinePoints}
                         />
                     }
