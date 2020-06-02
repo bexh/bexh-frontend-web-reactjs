@@ -1,0 +1,21 @@
+@import '../../../../sass/main.scss';
+
+.textInput input[type=text] {
+    width: 100px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border: 1px solid #4A4646;
+    background:#252323;
+    border-radius: 5px;
+    color: white;
+    text-align: center;
+    font-size: 14px;
+}
+
+.textInput input::placeholder {
+    text-align: center;
+}
+
+.textInput input:focus {
+    outline: 0;
+}

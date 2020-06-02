@@ -1,0 +1,35 @@
+
+
+.formInput__inputRow {
+    display: flex;
+    width: 100%;
+    height: 60px;
+    color: white;
+}
+
+.formInput__inputRowLeft {
+    display: flex;
+    justify-content: flex-start;
+    width: 40%;
+    align-items: center;
+}
+
+.formInput__inputRowRight {
+    display: flex;
+    justify-content: center;
+    width: 60%;
+    align-items: center;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.formInput__value {
+    color: white;
+}
+
+.formInput__note {
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 20px;
+    margin-top: 15px;
+}
