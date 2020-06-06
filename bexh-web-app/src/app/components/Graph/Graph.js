@@ -7,7 +7,7 @@ export default class Graph extends React.Component {
         this.state = {
             divHeight: null,
             divWidth: null,
-        }
+        };
 
         this.pseudoScalePoints = this.pseudoScalePoints.bind(this);
         this.coordsToPolyPoints = this.coordsToPolyPoints.bind(this);
@@ -46,6 +46,7 @@ export default class Graph extends React.Component {
         this.setState({
             hoverPointScaled: hoverPointScaled,
             hoverPoint: hoverPoint,
+            hoverPointRaw: this.props.points[minXDistIndex], 
         });
         this.props.onMouseOver(this.props.points[minXDistIndex]);
     }
@@ -125,39 +126,51 @@ export default class Graph extends React.Component {
         const nonScaleMaxY = Math.max(...reducedCoords[1]);
         const nonScaleMinY = Math.min(...reducedCoords[0]);
         const yAxisPoints = [nonScaleMaxY]
-        for (var i = 1; i < 10; i++) {
-            yAxisPoints.push(yAxisPoints[yAxisPoints.length - 1] - ((nonScaleMaxY - nonScaleMinY) / 10));
+        const numYAxisMarkers = 10;
+        for (var i = 1; i < numYAxisMarkers; i++) {
+            yAxisPoints.push(yAxisPoints[yAxisPoints.length - 1] - ((nonScaleMaxY - nonScaleMinY) / numYAxisMarkers));
         }
 
         return (
-            <div className="graph__container">
-                <div className="graph__yAxis">
-                    {yAxisPoints.map((val, key) => (
-                        <div key={key} className="graph__yAxis__val">{val}</div>
-                    ))}
-                </div>
-                <div ref={div => (this.div = div)} onMouseMove={this.handleHover} onMouseLeave={this.removeHover} className="graph__graphContainer">
-                    <svg className="graph__svg">
-                        <g transform={`translate(0, ${maxY}) scale(1, -1)`}>
-                        {   this.state.divHeight &&
-                            <polyline
-                                fill="none"
-                                stroke="#1E7958"
-                                strokeWidth="3"
-                                points={scaledPoints}
-                            />
-                        }
+            <div className="graph__colContainer">
+                <div className="graph__hoverDisplayContainer">
+                    <div style={{width: '6%', height: '20px'}} />
+                    <div className="graph__hoverDisplay">
                         {
-                            hoverLinePoints &&
-                            <polyline
-                                fill="none"
-                                stroke="rgba(201, 201, 201, 0.4)"
-                                strokeWidth="1"
-                                points={hoverLinePoints}
-                            />
+                            this.state.hoverPointScaled &&
+                        <div className="graph__hoverDisplayText" style={{left: `${this.state.hoverPointScaled[0] - 60}px`}}>{this.state.hoverPointRaw[this.props.displayField]}</div>
                         }
-                        </g>
-                    </svg>
+                    </div>
+                </div>
+                <div className="graph__rowContainer">
+                    <div className="graph__yAxis">
+                        {yAxisPoints.map((val, key) => (
+                            <div key={key} className="graph__yAxis__val">{val}</div>
+                        ))}
+                    </div>
+                    <div ref={div => (this.div = div)} onMouseMove={this.handleHover} onMouseLeave={this.removeHover} className="graph__graphContainer">
+                        <svg className="graph__svg">
+                            <g transform={`translate(0, ${maxY}) scale(1, -1)`}>
+                            {   this.state.divHeight &&
+                                <polyline
+                                    fill="none"
+                                    stroke="#1E7958"
+                                    strokeWidth="3"
+                                    points={scaledPoints}
+                                />
+                            }
+                            {
+                                hoverLinePoints &&
+                                <polyline
+                                    fill="none"
+                                    stroke="rgba(201, 201, 201, 0.4)"
+                                    strokeWidth="1"
+                                    points={hoverLinePoints}
+                                />
+                            }
+                            </g>
+                        </svg>
+                    </div>
                 </div>
             </div>
         );

@@ -1,34 +1,29 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import './style.scss';
-import { Graph } from '../../../../components/index';
 import Odometer from 'react-odometerjs';
+import { Graph } from '../../../../components/index';
+import { connect } from 'react-redux';
+import { fetchEventInfo } from './eventGraphActions';
 
-export default class EventGraph extends React.Component {
+class EventGraph extends React.Component {
     constructor(props) {
         super(props);
-        // note: x will be unix while date is pretty format
         this.state = {
-            points: [
-                {x:10, y:20, date: "Saturday, April 21, 12:00 PM ET"},
-                {x:20, y:60, date: "Saturday, April 21 12:30 PM ET"},
-                {x:40, y:80, date: "Saturday, April 21 1:00 PM ET"},
-                {x:60, y:20, date: "Saturday, April 21 1:30 PM ET"},
-                {x:80, y:80, date: "Saturday, April 21 2:00 PM ET"},
-                {x:100, y:60, date: "Saturday, April 21 2:30 PM ET"},
-                {x:120, y:100, date: "Saturday, April 21 3:00 PM ET"},
-                {x:140, y:90, date: "Saturday, April 21 3:30 PM ET"}
-            ],
-            homeTeam: "Cleveland Cavaliers",
-            awayTeam: "Detroit Pistons",
-            date: "Sunday, April 22, 12:00 PM",
             hoverPoint: null,
         };
         this.onMouseOver = this.onMouseOver.bind(this);
         this.onMouseLeave = this.onMouseLeave.bind(this);
     }
 
+    componentDidMount() {
+        console.log("FETCHING EVENT INFO");
+        this.props.fetchEventInfo({
+            eventId: this.props.id,
+        });
+    }
+
     onMouseOver(point) {
-        console.log("MOUSE OVER", point);
         this.setState({
             hoverPoint: point,
         });
@@ -37,20 +32,22 @@ export default class EventGraph extends React.Component {
     onMouseLeave(e) {
         this.setState({
             hoverPoint: null,
-        })
+        });
     }
 
     render() {
-        const marketPoint = this.state.points[this.state.points.length - 1];
+        if (this.props.points.length < 2) return(<div className="eventGraph__container" />);
+
+        const marketPoint = this.props.points[this.props.points.length - 1];
         const displayPointInfo = this.state.hoverPoint !== null ? this.state.hoverPoint : marketPoint;
-        const oddsChange = displayPointInfo['y'] - this.state.points[0]['y'];
-        const pctOddsChange = (oddsChange / this.state.points[0]['y']) * 100;
+        const oddsChange = displayPointInfo['y'] - this.props.points[0]['y'];
+        const pctOddsChange = (oddsChange / this.props.points[0]['y']) * 100;
 
         return (
             <div className="eventGraph__container">
                 <div className="eventGraph__info">
                     <div className="eventGraph__title">
-                        {`${this.state.homeTeam} vs ${this.state.awayTeam}`}
+                        {`${this.props.homeTeam} vs ${this.props.awayTeam}`}
                     </div>
                     <div className="eventGraph__marketOdds">
                         {displayPointInfo['y'] > 0 ? "+" : ""}
@@ -60,14 +57,36 @@ export default class EventGraph extends React.Component {
                         {oddsChange >= 0 ? `+${oddsChange} (+${pctOddsChange}%)` : `${oddsChange} (${pctOddsChange}%)`}
                     </div>
                     <div className="eventGraph__eventDate">
-                        {this.state.date}
+                        {this.props.date}
                     </div>
                 </div>
                 <div className="eventGraph__graphContainer">
-                    <Graph points={this.state.points} onMouseOver={this.onMouseOver} onMouseLeave={this.onMouseLeave}/>
+                    <Graph points={this.props.points} onMouseOver={this.onMouseOver} onMouseLeave={this.onMouseLeave} displayField="date"/>
                 </div>
                 <hr />
             </div>
         );
     }
 }
+
+EventGraph.propTypes = {
+    fetchEventInfo: PropTypes.func.isRequired,
+    points: PropTypes.arrayOf(PropTypes.shape({
+        x: PropTypes.number.isRequired,
+        y: PropTypes.number.isRequired,
+        date: PropTypes.string.isRequired,
+    })),
+    homeTeam: PropTypes.string.isRequired,
+    awayTeam: PropTypes.string.isRequired,
+    date: PropTypes.string.isRequired,
+    id: PropTypes.string.isRequired,
+}
+
+const mapStateToProps = state => ({
+    points: state.eventInfo.item.points,
+    homeTeam: state.eventInfo.item.homeTeam,
+    awayTeam: state.eventInfo.item.awayTeam,
+    date: state.eventInfo.item.date,
+});
+
+export default connect(mapStateToProps, { fetchEventInfo })(EventGraph);

@@ -12,7 +12,33 @@
     overflow: hidden;
 }
 
-.graph__container {
+.graph__colContainer {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+}
+
+.graph__hoverDisplayContainer {
+    display: flex;
+    height: 20px;
+    width: 100%;
+}
+
+.graph__hoverDisplay {
+    position: relative;
+    height: 20px;
+    width: 94%;
+}
+
+.graph__hoverDisplayText {
+    position: absolute;
+    color: $grey;
+    font-size: 12px;
+    margin-bottom: 10px;
+}
+
+.graph__rowContainer {
     display: flex;
     width: 100%;
     height: 100%;
