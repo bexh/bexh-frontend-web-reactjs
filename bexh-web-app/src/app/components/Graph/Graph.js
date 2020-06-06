@@ -1,5 +1,7 @@
 import React from 'react';
 import './style.scss';
+import EventGraph from '../../pages/Event/containers/EventGraph/EventGraph';
+import PropTypes from 'prop-types';
 
 export default class Graph extends React.Component {
     constructor(props) {
@@ -175,4 +177,14 @@ export default class Graph extends React.Component {
             </div>
         );
     }
+}
+
+Graph.propTypes = {
+    points: PropTypes.arrayOf(PropTypes.shape({
+        x: PropTypes.number.isRequired,
+        y: PropTypes.number.isRequired,
+    })),
+    onMouseOver: PropTypes.func.isRequired,
+    onMouseLeave: PropTypes.func.isRequired,
+    displayField: PropTypes.string.isRequired,
 }
