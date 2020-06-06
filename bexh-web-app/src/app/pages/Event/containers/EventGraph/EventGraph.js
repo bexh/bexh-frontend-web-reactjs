@@ -17,7 +17,6 @@ class EventGraph extends React.Component {
     }
 
     componentDidMount() {
-        console.log("FETCHING EVENT INFO");
         this.props.fetchEventInfo({
             eventId: this.props.id,
         });
