@@ -1,4 +1,8 @@
-export { default as MakeBet } from './MakBet/MakeBet';
+export { default as MakeBet } from './MakeBet/MakeBet';
+export { default as FormInput } from './FormInput/FormInput';
+export { default as Toggle } from './Button/Toggle/Toggle';
+export { default as TextInput } from './FormInput/TextInput/TextInput';
+export { default as TextAreaInput } from './FormInput/TextAreaInput/TextAreaInput';
 export { default as NavBar } from './NavBar/NavBar';
 export { default as TableView } from './TableView/TableView';
 export { default as TableViewCell } from './TableView/TableViewPanel/TableViewCell/TableViewCell';

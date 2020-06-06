@@ -1,0 +1,32 @@
+@import '../../../../sass/main.scss';
+
+.toggle {
+    display: flex;
+    height: 100%;
+    color: white;
+}
+
+.toggle__on {
+    background: #252323;
+    border-radius: 5px 0px 0px 5px;
+    border: 1px solid #4A4646;
+    cursor: pointer;
+    width: 90px;
+    color: white;
+}
+
+.toggle__off {
+    background:#252323;
+    border-radius: 0px 5px 5px 0px;
+    border: 1px solid #4A4646;
+    cursor: pointer;
+    width: 90px;
+    color: white;
+}
+
+.toggle--selected {
+    background-color: rgba(30, 121, 88, 0.69);
+    outline: 0;
+    color: white;
+    border-bottom: 0px;
+}
