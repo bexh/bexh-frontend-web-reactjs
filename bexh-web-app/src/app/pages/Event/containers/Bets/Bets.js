@@ -170,7 +170,6 @@ class Bets extends React.Component {
     }
 
     render() {
-
         const [exchangeBetCells, socialBetCells] = this.renderBets();
 
         return (
@@ -214,6 +213,7 @@ Bets.propTypes = {
     fetchMoreBets: PropTypes.func.isRequired,
     updateBetViewed: PropTypes.func.isRequired,
     bets: PropTypes.array.isRequired,
+    id: PropTypes.string.isRequired,
 }
 
 const mapStateToProps = state => ({

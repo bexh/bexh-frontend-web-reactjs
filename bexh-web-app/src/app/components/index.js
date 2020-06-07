@@ -1,5 +1,3 @@
-export { default as EventGraph } from './EventGraph/EventGraph';
-export { default as EventInfo } from './EventInfo/EventInfo';
 export { default as MakeBet } from './MakeBet/MakeBet';
 export { default as FormInput } from './FormInput/FormInput';
 export { default as Toggle } from './Button/Toggle/Toggle';
@@ -12,3 +10,4 @@ export { default as TableViewPanel } from './TableView/TableViewPanel/TableViewP
 export { default as ButtonBar } from './Button/ButtonBar/ButtonBar';
 export { default as Button } from './Button/Button';
 export { default as TableViewCellDropdown } from './TableView/TableViewPanel/TableViewCell/TableViewCellDropdown/TableViewCellDropdown';
+export { default as Graph } from './Graph/Graph';
