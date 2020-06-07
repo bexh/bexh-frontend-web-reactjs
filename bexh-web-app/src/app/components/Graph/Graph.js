@@ -127,7 +127,7 @@ export default class Graph extends React.Component {
         const reducedCoords = this.reducePoints(this.props.points);
         const nonScaleMaxY = Math.max(...reducedCoords[1]);
         const nonScaleMinY = Math.min(...reducedCoords[0]);
-        const yAxisPoints = [nonScaleMaxY]
+        const yAxisPoints = [nonScaleMaxY];
         const numYAxisMarkers = 10;
         for (var i = 1; i < numYAxisMarkers; i++) {
             yAxisPoints.push(yAxisPoints[yAxisPoints.length - 1] - ((nonScaleMaxY - nonScaleMinY) / numYAxisMarkers));
