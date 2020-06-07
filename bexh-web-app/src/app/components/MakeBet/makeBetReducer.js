@@ -6,17 +6,17 @@ const initialState = {
 }
 
 export default function(state = initialState, action) {
+    console.log("redux dbg action type", action.type)
     switch(action.type) {
-        case 'FETCH_GAME':
+        case FETCH_GAME:
+            console.log("redux fetch game", action.payload)
             return {
                 ...state,
-                items: action.payload
+                item: action.payload
             };
-        case 'NEW_BET':
-            return {
-                ...state,
-                items: action.payload
-            };
+        case NEW_BET:
+            console.log("redux submit", action.payload)
+            return state;
         default:
             return state;
     }

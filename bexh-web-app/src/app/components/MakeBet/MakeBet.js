@@ -29,31 +29,30 @@ class MakeBet extends React.Component {
             "note"       : "",
             "userOdds"   : "",
             "showOdds"   : true,
-            // "homeTeam"   : "Jazz",
-            // "awayTeam"   : "Bulls",
+            "homeTeam"   : "",
+            "awayTeam"   : "",
             "toWin"      : "-",
-            // "winner"     : "Jazz",
-            // "marketOdds" : this.calcMarketOdds("Jazz", "Jazz", "300"),
+            "winner"     : "",
+            "marketOdds" : 0,
         };
     }
 
     componentDidMount() {
         this.props.fetchGame();
-        this.props.makeBet.map(game => (
-            this.setState({
-                homeTeam: game.team1,
-                awayTeam: game.team2,
-                marketOdds: this.calcMarketOdds(game.team1, game.team2, game.odds),
-                winner: game.team1
-            })
-        ));
     }
 
-    // componentWillReceiveProps(nextProps) {
-    //     if(nextProps.newBet) {
-    //         this.props.makeBet.unshift(nextProps.newPost);
-    //     }
-    // }
+    componentDidUpdate(props) {
+        console.log("props: ", props)
+        if (props.homeTeam !== undefined) {
+            console.log("dbg this.props.games", this.props.games)
+            this.setState({
+                homeTeam: props.homeTeam,
+                awayTeam: props.awayTeam,
+                marketOdds: this.calcMarketOdds(props.homeTeam, props.awayTeam, props.odds),
+                winner: props.homeTeam,
+            });
+        }
+    }
 
     calcMarketOdds(winner, homeTeam, odds) {
         let oddsSign = winner === homeTeam ?  "+" : "-";
@@ -118,7 +117,7 @@ class MakeBet extends React.Component {
             betType: this.state.betType,
             winner: this.state.winner,
             amount: this.state.amount,
-            odds: this.state.betType == "Market" ? this.state.marketOdds : this.state.userOdds,
+            odds: this.state.betType === "Market" ? this.state.marketOdds : this.state.userOdds,
             note: this.state.note,
             friend: this.state.friend
         }
@@ -224,16 +223,19 @@ class MakeBet extends React.Component {
 }
 
 MakeBet.propTypes = {
-    fethGame: PropTypes.func.isRequired,
+    fetchGame: PropTypes.func.isRequired,
     createBet: PropTypes.func.isRequired,
-    makeBet: PropTypes.array.isRequired,
-    newBet: PropTypes.object,
+    games: PropTypes.object.isRequired,
+    // newBet: PropTypes.object,
 }
 
-const mapStateToProps = state => ({
-    // Reducer for placing new bets and getching game data
-    makeBet: state.makeBet.items,
-    newBet: state.makeBet.item,
-})
+const mapStateToProps = state => {
+    console.log("mapStatelogging: ", state)
+    return ({
+        homeTeam: state.makeBet.item.team1,
+        awayTeam: state.makeBet.item.team2,
+        odds: state.makeBet.item.odds,
+    })
+}
 
 export default connect(mapStateToProps, { fetchGame, createBet })(MakeBet)
