@@ -4,3 +4,6 @@ export const NEW_BET = 'NEW_BET';
 export const BET_VIEWED = 'BET_VIEWED';
 
 export const FETCH_EVENTS = 'FETCH_EVENTS';
+
+export const FETCH_GAME = 'FETCH_GAME';
+export const NEW_BET = 'NEW_BET';

@@ -1,12 +1,12 @@
 import React from 'react';
-import {
-    FormInput,
-    Button,
-    ButtonBar,
-} from '../../components';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { FormInput, Button, ButtonBar } from '../../components';
+import { fetchGame, createBet } from './makeBetActions';
 import './style.scss';
 
-export default class MakeBet extends React.Component {
+
+class MakeBet extends React.Component {
     constructor(props) {
         super(props)
 
@@ -29,32 +29,31 @@ export default class MakeBet extends React.Component {
             "note"       : "",
             "userOdds"   : "",
             "showOdds"   : true,
-            "homeTeam"   : "Jazz",
-            "awayTeam"   : "Bulls",
+            // "homeTeam"   : "Jazz",
+            // "awayTeam"   : "Bulls",
             "toWin"      : "-",
-            "winner"     : "Jazz",
-            "marketOdds" : this.calcMarketOdds("Jazz", "Jazz", "300"),
+            // "winner"     : "Jazz",
+            // "marketOdds" : this.calcMarketOdds("Jazz", "Jazz", "300"),
         };
     }
 
     componentDidMount() {
-        fetch('https://my.api.mockaroo.com/sports/basketball', {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-            'X-API-Key': '63cd1670',
-        },
-        })
-            .then(res =>res.json())
-            .then(data => console.log(data))
-            // .then(data => this.setState({
-            //     homeTeam: data.homeTeam,
-            //     awayTeam: data[0].awayTeam,
-            //     winner: data[0].homeTeam, // default to home team
-            //     marketOdds: this.calcMarketOdds(data[0].homeTeam, data[0].homeTeam, data[0].odds)
-            // }));
+        this.props.fetchGame();
+        this.props.makeBet.map(game => (
+            this.setState({
+                homeTeam: game.team1,
+                awayTeam: game.team2,
+                marketOdds: this.calcMarketOdds(game.team1, game.team2, game.odds),
+                winner: game.team1
+            })
+        ));
     }
+
+    // componentWillReceiveProps(nextProps) {
+    //     if(nextProps.newBet) {
+    //         this.props.makeBet.unshift(nextProps.newPost);
+    //     }
+    // }
 
     calcMarketOdds(winner, homeTeam, odds) {
         let oddsSign = winner === homeTeam ?  "+" : "-";
@@ -113,29 +112,18 @@ export default class MakeBet extends React.Component {
     }
 
     submitButtonOnClick(e){
-        // TODO: submit bet form to database(?)
         e.preventDefault();
 
         const post = {
-            betType: "",
-            winner: "",
-            amount: "",
-            odds: "",
-            note: "",
-            friend: ""
+            betType: this.state.betType,
+            winner: this.state.winner,
+            amount: this.state.amount,
+            odds: this.state.betType == "Market" ? this.state.marketOdds : this.state.userOdds,
+            note: this.state.note,
+            friend: this.state.friend
         }
 
-        fetch('', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json',
-                'X-API-Key': '63cd1670',
-            },
-            body: JSON.stringify(post)
-        })
-            .then(res => res.json())
-            .then(data => console.log(data));
+        this.props.createBet(post);
 
         this.setState(this.initialState);
     }
@@ -234,3 +222,18 @@ export default class MakeBet extends React.Component {
         );
     }
 }
+
+MakeBet.propTypes = {
+    fethGame: PropTypes.func.isRequired,
+    createBet: PropTypes.func.isRequired,
+    makeBet: PropTypes.array.isRequired,
+    newBet: PropTypes.object,
+}
+
+const mapStateToProps = state => ({
+    // Reducer for placing new bets and getching game data
+    makeBet: state.makeBet.items,
+    newBet: state.makeBet.item,
+})
+
+export default connect(mapStateToProps, { fetchGame, createBet })(MakeBet)
