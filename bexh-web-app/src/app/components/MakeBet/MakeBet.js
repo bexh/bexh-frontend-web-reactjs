@@ -41,21 +41,23 @@ class MakeBet extends React.Component {
         this.props.fetchGame();
     }
 
-    componentDidUpdate(props) {
-        console.log("props: ", props)
-        if (props.homeTeam !== undefined) {
-            console.log("dbg this.props.games", this.props.games)
-            this.setState({
+    static getDerivedStateFromProps(props, state) {
+        if (state.homeTeam !== props.homeTeam) {
+            return{
                 homeTeam: props.homeTeam,
                 awayTeam: props.awayTeam,
-                marketOdds: this.calcMarketOdds(props.homeTeam, props.awayTeam, props.odds),
+                marketOdds: props.odds,
                 winner: props.homeTeam,
-            });
+            };
         }
+        return null;
     }
 
     calcMarketOdds(winner, homeTeam, odds) {
-        let oddsSign = winner === homeTeam ?  "+" : "-";
+        let oddsSign = winner === homeTeam ?  "" : "-";
+        if (odds[0] === "-") {
+            odds = odds.substr(1)
+        }
         return (oddsSign + odds);
     }
 
@@ -129,7 +131,7 @@ class MakeBet extends React.Component {
 
     winnerButtonOnClick(e) {
         e.persist();
-        const marketOddsVal = this.calcMarketOdds(e.target.value, this.state.homeTeam);
+        const marketOddsVal = this.calcMarketOdds(e.target.value, this.state.homeTeam, this.state.marketOdds);
         this.setState({
             winner: e.target.value,
             marketOdds: marketOddsVal,
@@ -225,12 +227,11 @@ class MakeBet extends React.Component {
 MakeBet.propTypes = {
     fetchGame: PropTypes.func.isRequired,
     createBet: PropTypes.func.isRequired,
-    games: PropTypes.object.isRequired,
+    // games: PropTypes.object.isRequired,
     // newBet: PropTypes.object,
 }
 
 const mapStateToProps = state => {
-    console.log("mapStatelogging: ", state)
     return ({
         homeTeam: state.makeBet.item.team1,
         awayTeam: state.makeBet.item.team2,
