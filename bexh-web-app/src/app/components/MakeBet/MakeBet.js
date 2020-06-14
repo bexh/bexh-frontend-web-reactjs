@@ -42,11 +42,15 @@ class MakeBet extends React.Component {
     }
 
     static getDerivedStateFromProps(props, state) {
-        if (state.homeTeam !== props.homeTeam) {
+        if (state.homeTeam !== props.homeTeam && props.homeTeam !== undefined) {
+            let markOdds = String(props.odds)
+            if (markOdds[0] !== "-") {
+                markOdds = "+" + props.odds
+            }
             return{
                 homeTeam: props.homeTeam,
                 awayTeam: props.awayTeam,
-                marketOdds: props.odds,
+                marketOdds: markOdds,
                 winner: props.homeTeam,
             };
         }
@@ -54,10 +58,9 @@ class MakeBet extends React.Component {
     }
 
     calcMarketOdds(winner, homeTeam, odds) {
-        let oddsSign = winner === homeTeam ?  "" : "-";
-        if (odds[0] === "-") {
-            odds = odds.substr(1)
-        }
+        // can initial odds ever be negative?
+        let oddsSign = winner === homeTeam ?  "+" : "-";
+        odds = odds.substr(1) // shave off previous +/-
         return (oddsSign + odds);
     }
 
@@ -227,8 +230,7 @@ class MakeBet extends React.Component {
 MakeBet.propTypes = {
     fetchGame: PropTypes.func.isRequired,
     createBet: PropTypes.func.isRequired,
-    // games: PropTypes.object.isRequired,
-    // newBet: PropTypes.object,
+    bet: PropTypes.object,
 }
 
 const mapStateToProps = state => {
