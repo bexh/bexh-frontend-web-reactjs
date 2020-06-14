@@ -1,4 +1,4 @@
-import { FETCH_EVENTS } from '../../../../../redux/types';
+import { FETCH_REC_EVENTS } from '../../../../../redux/types';
 
 const initialState = {
     items: {},
@@ -6,7 +6,7 @@ const initialState = {
 
 export default function(state = initialState, action) {
     switch(action.type) {
-        case FETCH_EVENTS:
+        case FETCH_REC_EVENTS:
             return {
                 ...state,
                 items: action.payload,

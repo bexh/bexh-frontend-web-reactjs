@@ -23,7 +23,7 @@ export default class NavBar extends React.Component {
                                 <li><Link to="/sports/hockey">Hockey</Link></li>
                             </ul>
                         </li>
-                        <li><Link to="portfolio">User Hub</Link></li>
+                        <li><Link to="/portfolio">User Hub</Link></li>
                         <li>Account
                             <ul className="dropdown">
                                 <li><Link to="/friends">Friends</Link></li>

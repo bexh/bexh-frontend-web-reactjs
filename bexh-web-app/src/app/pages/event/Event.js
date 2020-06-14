@@ -2,7 +2,7 @@ import React from 'react';
 import {
     MakeBet,
 } from '../../components';
-import Bets from './containers/Bets/Bets';
+import EventBets from './containers/EventBets/EventBets';
 import EventGraph from './containers/EventGraph/EventGraph';
 import './style.scss';
 import { withRouter } from 'react-router-dom';
@@ -14,7 +14,7 @@ class Event extends React.Component {
             <div className="event">
                 <EventGraph id={id}/>
                 <MakeBet id={id}/>
-                <Bets id={id}/>
+                <EventBets id={id}/>
             </div>
         );
     }
