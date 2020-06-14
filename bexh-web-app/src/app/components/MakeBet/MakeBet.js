@@ -58,9 +58,8 @@ class MakeBet extends React.Component {
     }
 
     calcMarketOdds(winner, homeTeam, odds) {
-        // can initial odds ever be negative?
         let oddsSign = winner === homeTeam ?  "+" : "-";
-        odds = odds.substr(1) // shave off previous +/-
+        odds = odds.substr(1)
         return (oddsSign + odds);
     }
 
