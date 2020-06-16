@@ -2,17 +2,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import { fetchEvents } from './eventsActions';
+import { fetchRecEvents } from './recEventsActions';
 import { withRouter } from 'react-router-dom';
 import {
     TableView,
     TableViewCell,
     TableViewPanel,
 } from '../../../../components';
-import { Capitalize } from '../../../../../utils/utils';
 import './style.scss';
 
-class Events extends React.Component {
+class RecEvents extends React.Component {
     constructor(props) {
         super(props);
         this.renderEventPanels = this.renderEventPanels.bind(this);
@@ -20,8 +19,9 @@ class Events extends React.Component {
     }
 
     componentDidMount() {
-        this.props.fetchEvents({
-            sport: this.props.sport,
+        // TODO: fix this when sessions are in place
+        this.props.fetchRecEvents({
+            uid: "123",
         });
     }
 
@@ -58,27 +58,27 @@ class Events extends React.Component {
     }
 
     render() {
-        const eventPanels = this.renderEventPanels(this.props.events);
-        const title = Capitalize(this.props.sport);
+        const eventPanels = this.renderEventPanels(this.props.recEvents);
         return (
-            <TableView title={title}>
-                {eventPanels}
-            </TableView>
+            <div className="recEvents__tableContainer" >
+                <TableView title="Recommended Bets">
+                    {eventPanels}
+                </TableView>
+            </div>
         )
     }
 }
 
-Events.propTypes = {
-    sport: PropTypes.string.isRequired,
-    fetchEvents: PropTypes.func.isRequired,
-    events: PropTypes.shape({}).isRequired,
+RecEvents.propTypes = {
+    fetchRecEvents: PropTypes.func.isRequired,
+    recEvents: PropTypes.shape({}),
 }
 
 const mapStateToProps = state => ({
-    events: state.events.items,
+    recEvents: state.recEvents.items,
 });
 
 export default compose(
     withRouter,
-    connect(mapStateToProps, { fetchEvents })
-)(Events);
+    connect(mapStateToProps, { fetchRecEvents })
+)(RecEvents);

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { fetchBets, fetchMoreBets, updateBetViewed } from './betActions';
+import { fetchBets, fetchMoreBets, updateBetViewed } from './betsActions';
 import {
     TableView,
     TableViewCell,
@@ -170,41 +170,42 @@ class Bets extends React.Component {
     }
 
     render() {
-
         const [exchangeBetCells, socialBetCells] = this.renderBets();
 
         return (
-            <TableView title="Your Bets">
-                <ButtonBar>
-                    <Button
-                        className="button--tabButton"
-                        title="Active"
-                        value="Active"
-                        selected={this.state.selectedTab === "Active"}
-                        onClick={this.handleBetStatusChange}
-                    />
-                    <Button
-                        className="button--tabButton"
-                        title="Pending"
-                        value="Pending"
-                        selected={this.state.selectedTab === "Pending"}
-                        onClick={this.handleBetStatusChange}
-                    />
-                    <Button
-                        className="button--tabButton"
-                        title="Complete"
-                        value="Complete"
-                        selected={this.state.selectedTab === "Complete"}
-                        onClick={this.handleBetStatusChange}
-                    />
-                </ButtonBar>
-                <TableViewPanel scrollable title="Exchange" onReachBottom={this.onReachBottom}>
-                    {exchangeBetCells}
-                </TableViewPanel>
-                <TableViewPanel scrollable title="Social" onReachBottom={this.onReachBottom}>
-                    {socialBetCells}
-                </TableViewPanel>
-            </TableView>
+            <div className="bets__tableContainer" style={this.props.style}>
+                <TableView title="Your Bets">
+                    <ButtonBar>
+                        <Button
+                            className="button--tabButton"
+                            title="Active"
+                            value="Active"
+                            selected={this.state.selectedTab === "Active"}
+                            onClick={this.handleBetStatusChange}
+                        />
+                        <Button
+                            className="button--tabButton"
+                            title="Pending"
+                            value="Pending"
+                            selected={this.state.selectedTab === "Pending"}
+                            onClick={this.handleBetStatusChange}
+                        />
+                        <Button
+                            className="button--tabButton"
+                            title="Complete"
+                            value="Complete"
+                            selected={this.state.selectedTab === "Complete"}
+                            onClick={this.handleBetStatusChange}
+                        />
+                    </ButtonBar>
+                    <TableViewPanel scrollable title="Exchange" onReachBottom={this.onReachBottom}>
+                        {exchangeBetCells}
+                    </TableViewPanel>
+                    <TableViewPanel scrollable title="Social" onReachBottom={this.onReachBottom}>
+                        {socialBetCells}
+                    </TableViewPanel>
+                </TableView>
+            </div>
         );
     }
 }
@@ -214,6 +215,12 @@ Bets.propTypes = {
     fetchMoreBets: PropTypes.func.isRequired,
     updateBetViewed: PropTypes.func.isRequired,
     bets: PropTypes.array.isRequired,
+    style: PropTypes.shape(),
+    id: PropTypes.string.isRequired,
+}
+
+Bets.defaultProps = {
+    style: {},
 }
 
 const mapStateToProps = state => ({
