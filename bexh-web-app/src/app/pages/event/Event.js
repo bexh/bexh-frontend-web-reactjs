@@ -12,9 +12,15 @@ class Event extends React.Component {
         const id = this.props.match.params.id;
         return (
             <div className="event">
-                <EventGraph id={id}/>
-                <MakeBet id={id}/>
-                <EventBets id={id}/>
+                <div className="event__left">
+                    <MakeBet id={id}/>
+                </div>
+                <div className="event__right">
+                    <EventGraph id={id}/>
+                    <EventBets id={id}/>
+                </div>
+                
+                
             </div>
         );
     }
