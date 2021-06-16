@@ -87,13 +87,13 @@ FormInput.propTypes = {
                 }
                 return
             case "toggle":
-                if (!props.onClick || !props.toggleOn || !props.toggleOff) {
-                    console.log(!props.toggleIsOn)
-                    return new Error(`If '${componentName}' is \`toggle\` then \`toggleOn\`, \`toggleOff\`, \`onClick\` must be specified.`)
+                if (props.length < 4) {
+                    console.log(!props.toggleIsOff)
+                    return new Error(`If '${componentName}' is \`toggle\` then \`toggleOn\`, \`toggleOff\`, \`toggleIsOn\`, \`onClick\` must be specified.`)
                 }
                 return
             case "value":
-                if (!props.value) {
+                if (props.length < 1) {
                     return new Error(`If '${componentName}' is \`value\` then \`value\` must be specified.`)
                 }
                 return
