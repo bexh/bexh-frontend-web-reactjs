@@ -1,0 +1,36 @@
+@import "../../../../../sass/main.scss";
+
+
+.overview__tableContainer {
+    height: 85vh;
+    max-width: 600px;
+    min-width: 600px;
+}
+
+.overview__bigCellContainer {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
+
+.overview__bigCell {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 50%;
+    height: 70%;
+}
+
+.overview__bigCell__title {
+    font-size: 18px;
+    font-weight: bold;
+    color: $grey;
+    padding-bottom: 7px;
+}
+
+.overview__bigCell__value {
+    padding-top: 7px;
+    font-size: 70px;
+    font-weight: lighter;
+}

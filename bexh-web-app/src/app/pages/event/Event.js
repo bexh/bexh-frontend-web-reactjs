@@ -19,8 +19,6 @@ class Event extends React.Component {
                     <EventGraph id={id}/>
                     <EventBets id={id}/>
                 </div>
-                
-                
             </div>
         );
     }

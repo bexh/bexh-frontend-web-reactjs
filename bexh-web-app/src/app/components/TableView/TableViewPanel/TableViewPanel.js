@@ -32,7 +32,7 @@ export default class TableViewPanel extends React.Component {
         const tableViewPanelClass = this.props.scrollable ? "tableViewPanel--scrollable" : "tableViewPanel";
         const tableViewPanelCellsClass = this.props.scrollable ? "tableViewPanel__cells--scrollable" : "tableViewPanel__cells";
         return (
-            <div className={tableViewPanelClass}>
+            <div className={tableViewPanelClass} style={this.props.style}>
                 <div className="tableViewPanel__title">{this.props.title}</div>
                 <div ref={div => (this.div = div)} className={tableViewPanelCellsClass}>
                     {this.props.children}
@@ -47,9 +47,11 @@ TableViewPanel.propTypes = {
     title: PropTypes.string.isRequired,
     scrollable: PropTypes.bool,
     onReachBottom: PropTypes.func,
+    style: PropTypes.object,
 }
 
 TableViewPanel.defaultProps = {
     onReachBottom: () => ({}),
     scrollable: false,
+    style: {},
 }

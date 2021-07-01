@@ -1,5 +1,10 @@
 # BEXH
 
+Create .env.development file with the following:
+
+REACT_APP_MOCKAROO_API_KEY=
+
+
 To run with docker (local):
 
 docker-compose up -d -build  
