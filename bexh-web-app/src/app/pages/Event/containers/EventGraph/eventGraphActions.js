@@ -6,7 +6,7 @@ export const fetchEventInfo = (params) => dispatch => {
         headers: {
             'Content-Type': 'application/json',
             'Accept': 'application/json',
-            "X-API-Key": "056bfb80",
+            "X-API-Key": process.env.REACT_APP_MOCKAROO_API_KEY,
         },
     })
         .then(res => res.json())

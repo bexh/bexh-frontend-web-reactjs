@@ -216,11 +216,11 @@ Bets.propTypes = {
     updateBetViewed: PropTypes.func.isRequired,
     bets: PropTypes.array.isRequired,
     style: PropTypes.shape(),
-    id: PropTypes.string.isRequired,
 }
 
 Bets.defaultProps = {
     style: {},
+    id: null,
 }
 
 const mapStateToProps = state => ({

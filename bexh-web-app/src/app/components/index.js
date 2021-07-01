@@ -11,3 +11,5 @@ export { default as ButtonBar } from './Button/ButtonBar/ButtonBar';
 export { default as Button } from './Button/Button';
 export { default as TableViewCellDropdown } from './TableView/TableViewPanel/TableViewCell/TableViewCellDropdown/TableViewCellDropdown';
 export { default as Graph } from './Graph/Graph';
+export { default as TableViewBigCellContainer } from './TableView/TableViewPanel/TableViewBigCellContainer/TableViewBigCellContainer';
+export { default as TableViewBigCell } from './TableView/TableViewPanel/TableViewBigCellContainer/TableViewBigCell/TableViewBigCell';
