@@ -1,0 +1,22 @@
+@import '../../../../../../sass/main.scss';
+
+.tableViewBigCell__container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 50%;
+    height: 70%;
+}
+
+.tableViewBigCell__title {
+    font-size: 18px;
+    font-weight: bold;
+    color: $grey;
+    padding-bottom: 7px;
+}
+
+.tableViewBigCell__value {
+    padding-top: 7px;
+    font-size: 70px;
+    font-weight: lighter;
+}
