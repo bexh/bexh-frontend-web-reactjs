@@ -77,7 +77,7 @@
 
 .tableViewCell__flipCard {
   background-color: transparent;
-  height: 90px;
+  min-height: 90px;
   perspective: 1000px;
   border-bottom: 3px solid $darkBlack;
 }
